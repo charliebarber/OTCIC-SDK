@@ -22,7 +22,8 @@ Memory allocation will be tracked using `tracemalloc` library. Both `peak` and `
 There are implications that RAM may consume more power when it is more utilised, but in a non-linear relationship. This may mean that energy values will have to be implemented client-side, and calculated in detail, using every timestamp instead of using a pre-calculated value and multiplying it with a modifier value.
 
 Example:
-```RAM Values:
+```
+RAM Values:
 seconds, bytes
  0 |   0  |-|  10 |  24
  2 |  12  |-|  14 |  28
@@ -50,7 +51,8 @@ The RAM chart is visualised as an area chart, with squares being drawn.
 
 An average of the 30-second interval is calculated by multiplying the time and memory allocation, then dividing by total time
 
-```Average = (   ( 2 -  0) *  0 (=   0)
+```
+Average = (   ( 2 -  0) *  0 (=   0)
               + ( 5 -  2) * 12 (=  36)
               + ( 6 -  5) * 32 (=  32)
               + ( 7 -  6) * 48 (=  48)
@@ -68,7 +70,8 @@ An average of the 30-second interval is calculated by multiplying the time and m
 
 Values are added to RAM Values as a Queue. When data from that queue is consolidated, the Queue is cleared of all the measured values, then replaced by a substitute value when necessary
 
-```Ram Values:
+```
+Ram Values:
 30 |  28
 ```
 
