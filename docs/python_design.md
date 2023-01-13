@@ -11,7 +11,10 @@ The Aggregate Model consists of an Aggregate class, that stores the recorded dat
   |- GPU
 ```
 
+Each section is made up of two Queues, `Real Time Queue` and `Aggregate Queue`
+Data is recorded to the `Real Time Queue`.
 
+Every 15 minutes, the data in the `Real Time Queue` is consolidated into single record, with a single timestamp describing which 15-minute interval the record belongs to, and then pushed to the `Aggregate Queue`.
 
 ## RAM Tracing
 
