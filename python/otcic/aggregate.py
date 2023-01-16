@@ -1,5 +1,3 @@
-# aggregate model class
-import tracemalloc
-
 class AggregateModel:
-    pass
+    def __init__(self, interval):
+        self.interval = interval
