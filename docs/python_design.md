@@ -14,7 +14,9 @@ The Aggregate Model consists of an Aggregate class, that stores the recorded dat
 Each section is made up of two Queues, `Real Time Queue` and `Aggregate Queue`
 Data is recorded to the `Real Time Queue`.
 
-Every 15 minutes, the data in the `Real Time Queue` is consolidated into single record, with a single timestamp describing which 15-minute interval the record belongs to, and then pushed to the `Aggregate Queue`.
+Every 30 seconds, the data in the `Real Time Queue` is consolidated into single record, with a single timestamp describing which 30-second interval the record belongs to, and then pushed to the `Aggregate Queue`.
+
+This 30-second aggregated data will be sent to a databse using OpenTelemetry Collector. From there on, this data will be viewed in a real-time dashboard chart. This data is consolidated every 15 minutes into 30-minute intervals in the same fashion as done in the client, 30 minutes after it is sent to the database.
 
 ## RAM Tracing
 
@@ -22,7 +24,7 @@ Memory allocation will be tracked using `tracemalloc` library. Both `peak` and `
 -    `peak`: Maximum memory allocated within a time-slot - `high` value of a candle stick
 - `average`: Average amount of memory allocated in a given time interval.
 
-There are implications that RAM may consume more power when it is more utilised, but in a non-linear relationship. This may mean that energy values will have to be implemented client-side, and calculated in detail, using every timestamp instead of using a pre-calculated value and multiplying it with a modifier value.
+There are implications that RAM may consume more power when it is more utilised, but in a non-linear relationship. This may mean that energy values will be calculated in detail, using every timestamp, instead of using a pre-calculated value that is multiplied with a modifier value.
 
 Example:
 ```
