@@ -23,8 +23,6 @@ This 30-second aggregated data will be sent to a databse using OpenTelemetry Col
 Memory allocation will be tracked using `tracemalloc` library.
 - `average`: Average amount of memory allocated in a given time interval.
 
-There are implications that RAM may consume more power when it is more utilised, but in a non-linear relationship. This may mean that energy values will be calculated in detail, using every timestamp, instead of using a pre-calculated value that is multiplied with a modifier value.
-
 Example:
 ```
 RAM Values:
@@ -81,4 +79,9 @@ Ram Values:
 30 |  28
 ```
 
-## WIP
+## CPU Tracing
+
+CPU usage will be tracked using the time library:
+- `time.monotonic_ns()`: This counts clock time in total, used to determine the baseline for CPU time.
+- `time.process_time_ns()`: This counts the amount of time used in running the Python process, in order to calculate Python's usage of CPU time in a given period.
+
