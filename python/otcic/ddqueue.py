@@ -14,3 +14,9 @@ class DataDoubleQueue:
     def log(self, entry: Any):
         entry_time = time.time()
         self.real_time.append((entry_time, entry))
+
+    def measure(self):
+        pass
+
+    def collapse(self, start: int, interval: int):
+        pass

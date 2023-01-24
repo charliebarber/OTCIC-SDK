@@ -7,9 +7,6 @@ class CPUTracer(DataDoubleQueue):
         super().__init__()
         self.last_time = time.monotonic_ns()
         self.last_proc = time.process_time_ns()
-    
-    def measure(self):
-        pass
 
     def collapse(self, start: int, interval: int):
         new_time = time.monotonic_ns()
