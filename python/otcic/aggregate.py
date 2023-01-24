@@ -1,4 +1,5 @@
 import time
+from typing import Any
 
 from ddqueue import DataDoubleQueue
 from cpu_tracer import CPUTracer
@@ -27,5 +28,5 @@ class AggregateModel:
             for tracer in tracer_values:
                 tracer.collapse(start, self.interval)
 
-    def get_metrics(self):
-        return [values.aggregate for values in self.tracers.values()]
+    def get_metrics(self) -> dict[str, list[tuple[int, int, Any]]]:
+        return {key: values.aggregate for key, values in self.tracers.items()}
