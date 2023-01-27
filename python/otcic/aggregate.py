@@ -1,4 +1,5 @@
 import time
+from psutil import Process
 from typing import Any
 
 from ddqueue import DataDoubleQueue
@@ -10,12 +11,13 @@ from gpu_tracer import GPUTracer
 class AggregateModel:
     def __init__(self, interval: int):
         self.interval = interval
+        self.process = Process()
         self.next_interval = int(time.time() // interval) * interval
         self.tracers: dict[str, DataDoubleQueue] = {
-            "cpu": CPUTracer(),
-            "ram": RAMTracer(),
-            "disk": DiskTracer(),
-            "gpu": GPUTracer()
+            "cpu": CPUTracer(self.process),
+            "ram": RAMTracer(self.process),
+            "disk": DiskTracer(self.process),
+            "gpu": GPUTracer(self.process)
         }
 
     def measure(self):

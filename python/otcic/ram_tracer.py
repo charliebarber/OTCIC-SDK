@@ -1,16 +1,13 @@
-import tracemalloc
+from psutil import Process
 
 from ddqueue import DataDoubleQueue
 
-if not tracemalloc.is_tracing():
-    tracemalloc.start()
-
 class RAMTracer(DataDoubleQueue):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, process: Process):
+        super().__init__(process)
 
     def measure(self):
-        mem_bytes, _ = tracemalloc.get_traced_memory()
+        mem_bytes = self.process.memory_info().rss
         self.log(mem_bytes)
 
     def collapse(self, start: int, interval: int):

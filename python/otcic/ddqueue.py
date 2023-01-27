@@ -1,4 +1,5 @@
 import time
+from psutil import Process
 from typing import Any
 
 # 2 queues:
@@ -7,7 +8,8 @@ from typing import Any
 # consider putting this to server-side processing?
 
 class DataDoubleQueue:
-    def __init__(self):
+    def __init__(self, process: Process):
+        self.process: Process = process
         self.aggregate: list[tuple[int, int, Any]] = []
         self.real_time: list[tuple[float, Any]] = []
 
