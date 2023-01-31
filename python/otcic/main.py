@@ -30,5 +30,5 @@ def cpu_gauge_func(options):
 
 cpu_gauge = cpu_meter.create_observable_gauge(
     "cpu_gauge",
-
+    cpu_gauge_func
 )
