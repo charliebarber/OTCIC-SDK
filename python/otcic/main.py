@@ -14,83 +14,88 @@ from opentelemetry.sdk.metrics.export import (
 )
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 
-from aggregate import AggregateModel
+# from aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
 
 
-# OpenTelemetry exporter setup
-temporality_delta = {Counter: AggregationTemporality.DELTA}
+def setup():
+    # OpenTelemetry exporter setup
+    temporality_delta = {Counter: AggregationTemporality.DELTA}
 
-exporter = OTLPMetricExporter(
-    preferred_temporality=temporality_delta,
-)
+    exporter = OTLPMetricExporter(
+        preferred_temporality=temporality_delta,
+    )
 
-# Gets a reading every 30000ms (30s)
-metric_reader = PeriodicExportingMetricReader(
-    exporter,
-    export_interval_millis=30_000,
-)
+    # Gets a reading every 30000ms (30s)
+    metric_reader = PeriodicExportingMetricReader(
+        exporter,
+        export_interval_millis=30_000,
+    )
 
-meter_provider = MeterProvider(metric_readers=[metric_reader])
-set_meter_provider(meter_provider)
+    meter_provider = MeterProvider(metric_readers=[metric_reader])
+    set_meter_provider(meter_provider)
 
-# CPU Meter
-cpu_meter = get_meter_provider().get_meter("cpu-meter")
+    # CPU Meter
+    cpu_meter = get_meter_provider().get_meter("cpu-meter")
 
-def cpu_gauge_func(options):
-    # This function gets called every time OpenTelemetry takes a reading
-    # It yields a value in the Observation
-    # CPU measurement should take place within here
+    def cpu_gauge_func(options):
+        # This function gets called every time OpenTelemetry takes a reading
+        # It yields a value in the Observation
+        # CPU measurement should take place within here
 
-    # e.g. val = aggregate.get_cpu_measurement()
+        # e.g. val = aggregate.get_cpu_measurement()
 
-    val = 34
+        val = 34
 
-    yield Observation(val)
+        yield Observation(val)
 
-cpu_gauge = cpu_meter.create_observable_gauge(
-    "cpu_gauge",
-    callbacks=[cpu_gauge_func]
-)
-
-
-# RAM meter
-ram_meter = get_meter_provider().get_meter("cpu-meter")
-
-def ram_gauge_func(options):
-    val = 12
-
-    yield Observation(val)
-
-ram_gauge = ram_meter.create_observable_gauge(
-    "ram_gauge",
-    callbacks=[ram_gauge_func]
-)
+    cpu_gauge = cpu_meter.create_observable_gauge(
+        "cpu_gauge",
+        callbacks=[cpu_gauge_func]
+    )
 
 
-# Disk meter
-disk_meter = get_meter_provider().get_meter("disk-meter")
+    # RAM meter
+    ram_meter = get_meter_provider().get_meter("cpu-meter")
 
-def disk_gauge_func(options):
-    val = 1
+    def ram_gauge_func(options):
+        val = 12
 
-    yield Observation(val)
+        yield Observation(val)
 
-disk_gauge = disk_meter.create_observable_gauge(
-    "disk_gauge",
-    callbacks=[disk_gauge_func]
-)
+    ram_gauge = ram_meter.create_observable_gauge(
+        "ram_gauge",
+        callbacks=[ram_gauge_func]
+    )
 
 
-# GPU meter
-gpu_meter = get_meter_provider().get_meter("gpu-meter")
+    # Disk meter
+    disk_meter = get_meter_provider().get_meter("disk-meter")
 
-def gpu_gauge_func(options):
-    val = 1
+    def disk_gauge_func(options):
+        val = 1
 
-    yield Observation(val)
+        yield Observation(val)
 
-gpu_gauge = gpu_meter.create_observable_gauge(
-    "gpu_gauge",
-    callbacks=[gpu_gauge_func]
-)
+    disk_gauge = disk_meter.create_observable_gauge(
+        "disk_gauge",
+        callbacks=[disk_gauge_func]
+    )
+
+
+    # GPU meter
+    gpu_meter = get_meter_provider().get_meter("gpu-meter")
+
+    def gpu_gauge_func(options):
+        val = 1
+
+        yield Observation(val)
+
+    gpu_gauge = gpu_meter.create_observable_gauge(
+        "gpu_gauge",
+        callbacks=[gpu_gauge_func]
+    )
+
+    # def constant_measure():
+    #     while 1:
+    #         time.sleep(random.random())
