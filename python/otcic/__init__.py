@@ -1,3 +1,4 @@
+from functools import wraps
 from opentelemetry.metrics import (
     Observation,
     get_meter_provider,
@@ -14,9 +15,24 @@ from opentelemetry.sdk.metrics.export import (
 )
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 
-# from aggregate import AggregateModel
+from aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
 
+aggregate = AggregateModel(30)
+
+def all_trace(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        aggregate.measure()
+        return func(*args, **kwargs)
+    return wrapper
+
+def ram_trace(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        aggregate.tracers["ram"].measure()
+        return func(*args, **kwargs)
+    return wrapper
 
 def setup():
     # OpenTelemetry exporter setup
@@ -39,13 +55,10 @@ def setup():
     cpu_meter = get_meter_provider().get_meter("cpu-meter")
 
     def cpu_gauge_func(options):
-        # This function gets called every time OpenTelemetry takes a reading
-        # It yields a value in the Observation
-        # CPU measurement should take place within here
-
-        # e.g. val = aggregate.get_cpu_measurement()
-
-        val = 34
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["cpu"]
+        val = aggregate_data[len(aggregate_data)][2]
 
         yield Observation(val)
 
@@ -59,7 +72,10 @@ def setup():
     ram_meter = get_meter_provider().get_meter("cpu-meter")
 
     def ram_gauge_func(options):
-        val = 12
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["ram"]
+        val = aggregate_data[len(aggregate_data)][2]
 
         yield Observation(val)
 
@@ -73,7 +89,11 @@ def setup():
     disk_meter = get_meter_provider().get_meter("disk-meter")
 
     def disk_gauge_func(options):
-        val = 1
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["disk"]
+        pair = aggregate_data[len(aggregate_data)][2]
+        val = pair[0] + pair[1]
 
         yield Observation(val)
 
@@ -87,7 +107,10 @@ def setup():
     gpu_meter = get_meter_provider().get_meter("gpu-meter")
 
     def gpu_gauge_func(options):
-        val = 1
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["gpu"]
+        val = aggregate_data[len(aggregate_data)][2]
 
         yield Observation(val)
 
@@ -95,7 +118,3 @@ def setup():
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
     )
-
-    # def constant_measure():
-    #     while 1:
-    #         time.sleep(random.random())
