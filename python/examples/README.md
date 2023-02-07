@@ -4,7 +4,7 @@ Here are some examples demonstrating how OTCIC can be used with Python applicati
 
 To install all dependencies with Conda use:
 ```
-conda create -n otcic --file requirenents.txt
+conda create -n otcic --file requirements.txt
 ```
 
 ## HTTP Server
