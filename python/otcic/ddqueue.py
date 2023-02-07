@@ -2,11 +2,6 @@ import time
 from psutil import Process
 from typing import Any
 
-# 2 queues:
-# - aggergate queue
-# - real time queue
-# consider putting this to server-side processing?
-
 class DataDoubleQueue:
     def __init__(self, process: Process):
         self.process: Process = process

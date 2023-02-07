@@ -4,7 +4,6 @@ from gpustat import GPUStat
 
 from ddqueue import DataDoubleQueue
 
-# NVIDIA compatible only!
 class GPUTracer(DataDoubleQueue):
     def __init__(self, process: Process):
         super().__init__(process)
