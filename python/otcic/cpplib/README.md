@@ -7,7 +7,7 @@ With export option on, this will compile the DLL with export functionality.
 
 `g++ -c -DOTCIC_GPU_WIN_EXPORT otcic_gpu_win.cpp`
 
-`g++ -shared -o otcic_gpu_win.dll otcic_gpu_win.o`
+`g++ -shared -o otcic_gpu_win.dll otcic_gpu_win.o -Wl,--out-implib,libotcic_gpu_win.dll.a`
 
 # Linux Library #
 
