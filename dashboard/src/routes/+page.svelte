@@ -1,3 +1,7 @@
+<script>
+    import { lastApp } from '../stores';
+</script>
+
 <h1>Home</h1>
 
 <p>
@@ -7,10 +11,10 @@
 
 <div class="grid">
     <div>
-        <a href="/list" role="button" style="width: 100%">List view</a>
+        <a rel='external' href="/list" role="button" style="width: 100%">List view</a>
     </div>
 
     <div>
-        <a href="/chart" role="button" style="width: 100%">Chart view</a>
+        <a rel='external' href={`/chart/${$lastApp}`} role="button" style="width: 100%">Chart view</a>
     </div>
 </div>

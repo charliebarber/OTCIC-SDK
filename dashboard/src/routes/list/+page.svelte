@@ -20,7 +20,7 @@
             {#each data.apps as app, i}
                 <tr>
                     <th scope="row">{i+1}</th>
-                    <td>{app.name}</td>
+                    <td><a href={`/chart/${app.url}`}>{app.name}</a></td>
                     <td>{app.score}</td>
                     <td>{app.cpu}</td>
                     <td>{app.ram}</td>

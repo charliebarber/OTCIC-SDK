@@ -1,6 +1,6 @@
 export const apps = [
     {
-        name: 'express-http-server',
+        name: 'Express HTTP Server',
         language: 'JavaScript',
         score: 23,
         metrics: {
@@ -11,7 +11,7 @@ export const apps = [
         }
     },
     {
-        name: 'flask-http-server',
+        name: 'Flask HTTP Server',
         language: 'Python',
         score: 40,
         metrics: {

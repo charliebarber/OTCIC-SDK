@@ -7,7 +7,7 @@
 <header class='container-fluid'>
     <nav>
         <ul>
-            <li><a href='/' role="button" class="outline">
+            <li><a href='/' role="button" class="outline" rel='external'>
                 <!-- <Icon src="{Home}" theme="mini" size="10%"/> -->
                 Home
             </a></li>
