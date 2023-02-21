@@ -14,7 +14,7 @@ BOOLEAN getPID_GPU_Available(DWORD pid){
     PDH_HCOUNTER hCounter = NULL;
     PDH_STATUS status = ERROR_SUCCESS;
 
-    status = PdhOpenQueryW(NULL, NULL, &hQuery);
+    status = PdhOpenQueryA(NULL, NULL, &hQuery);
     cleanup(hQuery);
 
     return (status == ERROR_SUCCESS) ? TRUE : FALSE;
@@ -25,7 +25,7 @@ size_t getPID_GPU_Memory(DWORD pid){
     PDH_HCOUNTER hCounter = NULL;
     PDH_STATUS status = ERROR_SUCCESS;
 
-    status = PdhOpenQueryW(NULL, NULL, &hQuery);
+    status = PdhOpenQueryA(NULL, NULL, &hQuery);
     if(status != ERROR_SUCCESS){
         cleanup(hQuery);
         return 0ULL;
@@ -63,7 +63,7 @@ double getPID_GPU_Usage(DWORD pid){
     PDH_HCOUNTER hCounter = NULL;
     PDH_STATUS status = ERROR_SUCCESS;
 
-    status = PdhOpenQueryW(NULL, NULL, &hQuery);
+    status = PdhOpenQueryA(NULL, NULL, &hQuery);
     if(status != ERROR_SUCCESS){
         cleanup(hQuery);
         return -1.0;
