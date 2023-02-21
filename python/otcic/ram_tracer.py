@@ -1,6 +1,6 @@
 from psutil import Process
 
-from ddqueue import DataDoubleQueue
+from .ddqueue import DataDoubleQueue
 
 class RAMTracer(DataDoubleQueue):
     def __init__(self, process: Process):

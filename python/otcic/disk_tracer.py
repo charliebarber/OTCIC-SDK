@@ -1,6 +1,6 @@
 import time
 from psutil import Process
-from ddqueue import DataDoubleQueue
+from .ddqueue import DataDoubleQueue
 from typing import NamedTuple
 
 class ReadWriteBytes(NamedTuple):

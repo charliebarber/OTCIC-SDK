@@ -2,11 +2,11 @@ import time
 from psutil import Process
 from typing import Any
 
-from ddqueue import DataDoubleQueue
-from cpu_tracer import CPUTracer
-from ram_tracer import RAMTracer
-from disk_tracer import DiskTracer
-from gpu_tracer import GPUTracer
+from .ddqueue import DataDoubleQueue
+from .cpu_tracer import CPUTracer
+from .ram_tracer import RAMTracer
+from .disk_tracer import DiskTracer
+from .gpu_tracer import GPUTracer
 
 class AggregateModel:
     def __init__(self, interval: int):

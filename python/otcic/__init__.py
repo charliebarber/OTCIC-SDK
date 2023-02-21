@@ -15,7 +15,7 @@ from opentelemetry.sdk.metrics.export import (
 )
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 
-from aggregate import AggregateModel
+from .aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
 
 aggregate = AggregateModel(30)

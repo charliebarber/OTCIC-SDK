@@ -2,7 +2,7 @@ from psutil import Process
 import gpustat
 from gpustat import GPUStat
 
-from ddqueue import DataDoubleQueue
+from .ddqueue import DataDoubleQueue
 
 class GPUTracer(DataDoubleQueue):
     def __init__(self, process: Process):
