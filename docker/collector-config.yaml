@@ -1,8 +1,8 @@
 extensions:
   basicauth/metrics:
     client_auth:
-      username: 727351
-      password: eyJrIjoiNWIwYzcxOWVhM2VmZjZkNzAzMWMzZGVlYTRhNmUyNDVhNWJmMzgyMCIsIm4iOiJjb2xsZWN0dGVzdCIsImlkIjo3NzU2NzN9
+      username: ${env:PROMUSERNAME}
+      password: ${env:PROMPASSWORD}
 
 receivers:
   otlp:
