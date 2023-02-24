@@ -1,3 +1,9 @@
+extensions:
+  basicauth/metrics:
+    client_auth:
+      username: ${env:PROMUSERNAME}
+      password: ${env:PROMPASSWORD}
+
 receivers:
   otlp:
     protocols:
@@ -11,9 +17,14 @@ receivers:
 exporters:
   file:
     path: ./metrics.json
+  prometheusremotewrite:
+    auth:
+      authenticator: basicauth/metrics
+    endpoint: ${env:PROMENDPOINT}
 
 service:
+  extensions: [basicauth/metrics]
   pipelines:
     metrics:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [file, prometheusremotewrite]
