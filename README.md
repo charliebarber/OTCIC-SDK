@@ -32,6 +32,7 @@ To stop the Docker container:
 cd ./docker && docker-compose down
 ```
 
+
 ### JavaScript
 
 To run the example JavaScript application, run:
@@ -40,3 +41,14 @@ node --require './js/instrumentation.js' js/app.js
 ```
 
 The application is a simple Express app listening for HTTP requests. `instrumentation.js` then listens for CPU and RAM metrics every 3 seconds.
+
+
+### Python
+
+Installation:
+```
+pip install -e python
+```
+
+This installs the otcic package locally from the `python` folder containing the `otcic` module.
+
