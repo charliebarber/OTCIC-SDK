@@ -13,6 +13,15 @@ The project uses Open Telemetry API to handle the gathered data and sends it to 
 
 ### Docker Collector setup
 
+You must define your Prometheus setup as an environment variable in a `docker/.env` file.
+
+An example `docker/.env` file can be seen below:
+```
+PROMUSERNAME=727351
+PROMPASSWORD="eyJrIjoiNWIwYzcxOWVhM2VmZjZkNzxzMWMzZGVlYTRhNaUyNDVhNWJmMzgyMCIsIm4iOiJjb2xsZWN0dGVzdCIsImlkIjo3NzU2NzN9"
+PROMENDPOINT="https://prometheus-prod-05-gb-south-0.grafana.net/api/prom/push"
+```
+
 To start the Collector with Docker run:
 ```
 cd ./docker && docker-compose down && docker-compose up
