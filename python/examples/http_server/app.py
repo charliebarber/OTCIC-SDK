@@ -2,8 +2,9 @@ from random import randint
 from flask import Flask, request
 import sys
 import os
-#sys.path.append('../python')
+# sys.path.append('..')
 import otcic
+# from ...python import otcic as otcic
 
 app = Flask(__name__)
 
