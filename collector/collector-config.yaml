@@ -9,10 +9,11 @@ receivers:
     protocols:
       grpc:
       http:
+        endpoint: "localhost:4318"
         cors:
           allowed_origins:
-            - http://*
-            - https://*
+            - "http://*"
+            - "https://*"
 
 exporters:
   file:

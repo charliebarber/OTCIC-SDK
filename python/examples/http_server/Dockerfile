@@ -5,7 +5,7 @@ WORKDIR /http_server
 
 # Copy otcic and install
 COPY ./otcic ./otcic
-RUN pip install --upgrade ./otcic
+RUN pip install -e ./otcic
 
 # Install other dependencies
 COPY ./requirements.txt /http_server
