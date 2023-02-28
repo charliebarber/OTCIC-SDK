@@ -73,14 +73,17 @@ def setup(service_name):
     cpu_meter = get_meter_provider().get_meter("cpu-meter")
 
     def cpu_gauge_func(options):
-        # aggregate.measure()
-        # metrics = aggregate.get_metrics()
-        # aggregate_data = metrics["cpu"]
-        # val = aggregate_data[len(aggregate_data)][2]
-        val = random.randint(0, 20)
+        print("hello")
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["cpu"]
+        print("aggregte_data", aggregate_data)
+        val = aggregate_data[len(aggregate_data)-1][2]
+        
+        # val = random.randint(0, 20)
         yield Observation(val)
 
-    cpu_gauge = cpu_meter.create_observable_gauge(
+    cpu_meter.create_observable_gauge(
         "cpu_gauge",
         callbacks=[cpu_gauge_func]
     )

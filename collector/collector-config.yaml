@@ -1,8 +1,8 @@
-extensions:
-  basicauth/metrics:
-    client_auth:
-      username: ${env:PROMUSERNAME}
-      password: ${env:PROMPASSWORD}
+# extensions:
+#   basicauth/metrics:
+#     client_auth:
+#       username: ${env:PROMUSERNAME}
+#       password: ${env:PROMPASSWORD}
 
 receivers:
   otlp:
@@ -29,7 +29,7 @@ exporters:
     
 
 service:
-  extensions: [basicauth/metrics]
+  # extensions: [basicauth/metrics]
   pipelines:
     metrics:
       receivers: [otlp]
