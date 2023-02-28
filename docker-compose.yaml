@@ -39,6 +39,17 @@ services:
       - --web.enable-remote-write-receiver
     volumes:
       - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
+
+  # ********************
+  # Dashboard
+  # ********************
+  svelte-ui:
+    container_name: svelte-ui
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
   
   # ********************
   # Example Apps
