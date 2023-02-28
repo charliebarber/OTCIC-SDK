@@ -2,9 +2,9 @@ from random import randint
 from flask import Flask, request
 import sys
 import os
-# sys.path.append('..')
 import otcic
-# from ...python import otcic as otcic
+
+print(dir(otcic))
 
 app = Flask(__name__)
 
@@ -16,4 +16,4 @@ def roll_dice():
 def do_roll():
     return randint(1, 6)
 
-otcic.setup()
+otcic.setup("flask-server")
