@@ -1,0 +1,36 @@
+# extensions:
+#   basicauth/metrics:
+#     client_auth:
+#       username: ${env:PROMUSERNAME}
+#       password: ${env:PROMPASSWORD}
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+        cors:
+          allowed_origins:
+            - "http://*"
+            - "https://*"
+
+exporters:
+  file:
+    path: ./metrics.json
+  # prometheusremotewrite:
+  #   auth:
+  #     authenticator: basicauth/metrics
+  #   endpoint: ${env:PROMENDPOINT}
+  prometheusremotewrite:
+    # For official Prometheus (e.g. running via Docker)
+    endpoint: 'http://prometheus:9090/api/v1/write'
+    tls:
+      insecure: true
+    
+
+service:
+  # extensions: [basicauth/metrics]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [file, prometheusremotewrite]

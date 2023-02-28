@@ -52,7 +52,7 @@ The application is a simple Express app listening for HTTP requests. `instrument
 Installation:
 
 ```
-pip install -e python
+pip install -e python/otcic
 ```
 
 This installs the otcic package locally from the `python` folder containing the `otcic` module.
