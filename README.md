@@ -56,3 +56,8 @@ pip install -e python/otcic
 ```
 
 This installs the otcic package locally from the `python` folder containing the `otcic` module.
+
+### Links
+
+[HTTP Server Instructions](python/examples/README.md)
+[OTCIC Python Module Disclaimers](python/otcic/README.md)

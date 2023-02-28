@@ -6,7 +6,7 @@ from .ddqueue import DataDoubleQueue
 from .cpu_tracer import CPUTracer
 from .ram_tracer import RAMTracer
 from .disk_tracer import DiskTracer
-# from .gpu_tracer import GPUTracer
+from .gpu_tracer import GPUTracer
 
 class AggregateModel:
     def __init__(self, interval: int):
@@ -17,7 +17,7 @@ class AggregateModel:
             "cpu": CPUTracer(self.process),
             "ram": RAMTracer(self.process),
             "disk": DiskTracer(self.process),
-            # "gpu": GPUTracer(self.process)
+            "gpu": GPUTracer(self.process)
         }
 
     def measure(self):

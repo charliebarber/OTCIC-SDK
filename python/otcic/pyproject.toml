@@ -1,4 +1,2 @@
 [build-system]
 requires = ["setuptools==67.4.0"]
-
-exclude = ["gpu_tracer.py"]

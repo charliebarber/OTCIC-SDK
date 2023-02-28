@@ -24,7 +24,7 @@ from .aggregate import AggregateModel
 # delete this
 import random
 
-aggregate = AggregateModel(30)
+aggregate = AggregateModel(3)
 
 def all_trace(func):
     @wraps(func)
@@ -57,7 +57,7 @@ def setup(service_name):
     #     preferred_temporality=temporality_delta
     # )
 
-    # Gets a reading every 30000ms (30s)
+    # Gets a reading every 3000ms (3s)
     metric_reader = PeriodicExportingMetricReader(
         exporter,
         export_interval_millis=3_000,
@@ -125,17 +125,17 @@ def setup(service_name):
 
 
     # GPU meter
-    # gpu_meter = get_meter_provider().get_meter("gpu-meter")
+    gpu_meter = get_meter_provider().get_meter("gpu-meter")
 
-    # def gpu_gauge_func(options):
-    #     aggregate.measure()
-    #     metrics = aggregate.get_metrics()
-    #     aggregate_data = metrics["gpu"]
-    #     val = aggregate_data[len(aggregate_data)-1][2]
+    def gpu_gauge_func(options):
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["gpu"]
+        val = aggregate_data[len(aggregate_data)-1][2]
 
-    #     yield Observation(val)
+        yield Observation(val)
 
-    # gpu_gauge = gpu_meter.create_observable_gauge(
-    #     "gpu_gauge",
-    #     callbacks=[gpu_gauge_func]
-    # )
+    gpu_gauge = gpu_meter.create_observable_gauge(
+        "gpu_gauge",
+        callbacks=[gpu_gauge_func]
+    )
