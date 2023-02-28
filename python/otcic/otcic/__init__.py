@@ -13,16 +13,12 @@ from opentelemetry.sdk.metrics.export import (
     PeriodicExportingMetricReader,
     AggregationTemporality
 )
-# from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 
 from .aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
-
-# delete this
-import random
 
 INTERVAL_S = 3
 aggregate = AggregateModel(INTERVAL_S)
@@ -74,14 +70,11 @@ def setup(service_name):
 
 
     def cpu_gauge_func(options):
-        print("hello")
         aggregate.measure()
         metrics = aggregate.get_metrics()
         aggregate_data = metrics["cpu"]
-        print("aggregte_data", aggregate_data)
         val = aggregate_data[len(aggregate_data)-1][2]
-        
-        # val = random.randint(0, 20)
+
         yield Observation(val)
 
     meter.create_observable_gauge(
@@ -96,7 +89,7 @@ def setup(service_name):
         metrics = aggregate.get_metrics()
         aggregate_data = metrics["ram"]
         val = aggregate_data[len(aggregate_data)-1][2]
-        # val = random.randint(0,500)
+
         yield Observation(val)
 
     meter.create_observable_gauge(
@@ -112,7 +105,7 @@ def setup(service_name):
         aggregate_data = metrics["disk"]
         pair = aggregate_data[len(aggregate_data)-1][2]
         val = pair[0] + pair[1]
-        val = random.randint(0, 100)
+
         yield Observation(val)
 
     meter.create_observable_gauge(
