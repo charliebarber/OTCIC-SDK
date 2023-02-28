@@ -17,10 +17,16 @@ receivers:
 exporters:
   file:
     path: ./metrics.json
+  # prometheusremotewrite:
+  #   auth:
+  #     authenticator: basicauth/metrics
+  #   endpoint: ${env:PROMENDPOINT}
   prometheusremotewrite:
-    auth:
-      authenticator: basicauth/metrics
-    endpoint: ${env:PROMENDPOINT}
+    # For official Prometheus (e.g. running via Docker)
+    endpoint: 'http://prometheus:9090/api/v1/write'
+    tls:
+      insecure: true
+    
 
 service:
   extensions: [basicauth/metrics]
