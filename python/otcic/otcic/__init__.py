@@ -93,14 +93,14 @@ def setup(service_name):
     ram_meter = get_meter_provider().get_meter("cpu-meter")
 
     def ram_gauge_func(options):
-    #     aggregate.measure()
-    #     metrics = aggregate.get_metrics()
-    #     aggregate_data = metrics["ram"]
-    #     val = aggregate_data[len(aggregate_data)][2]
-        val = random.randint(0,500)
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["ram"]
+        val = aggregate_data[len(aggregate_data)-1][2]
+        # val = random.randint(0,500)
         yield Observation(val)
 
-    ram_gauge = ram_meter.create_observable_gauge(
+    ram_meter.create_observable_gauge(
         "ram_gauge",
         callbacks=[ram_gauge_func]
     )
@@ -110,15 +110,15 @@ def setup(service_name):
     disk_meter = get_meter_provider().get_meter("disk-meter")
 
     def disk_gauge_func(options):
-    #     aggregate.measure()
-    #     metrics = aggregate.get_metrics()
-    #     aggregate_data = metrics["disk"]
-    #     pair = aggregate_data[len(aggregate_data)][2]
-    #     val = pair[0] + pair[1]
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["disk"]
+        pair = aggregate_data[len(aggregate_data)-1][2]
+        val = pair[0] + pair[1]
         val = random.randint(0, 100)
         yield Observation(val)
 
-    disk_gauge = disk_meter.create_observable_gauge(
+    disk_meter.create_observable_gauge(
         "disk_gauge",
         callbacks=[disk_gauge_func]
     )
@@ -131,7 +131,7 @@ def setup(service_name):
     #     aggregate.measure()
     #     metrics = aggregate.get_metrics()
     #     aggregate_data = metrics["gpu"]
-    #     val = aggregate_data[len(aggregate_data)][2]
+    #     val = aggregate_data[len(aggregate_data)-1][2]
 
     #     yield Observation(val)
 
