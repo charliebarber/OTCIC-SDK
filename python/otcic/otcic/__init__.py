@@ -24,7 +24,8 @@ from .aggregate import AggregateModel
 # delete this
 import random
 
-aggregate = AggregateModel(3)
+INTERVAL_S = 3
+aggregate = AggregateModel(INTERVAL_S)
 
 def all_trace(func):
     @wraps(func)
@@ -57,10 +58,9 @@ def setup(service_name):
     #     preferred_temporality=temporality_delta
     # )
 
-    # Gets a reading every 3000ms (3s)
     metric_reader = PeriodicExportingMetricReader(
         exporter,
-        export_interval_millis=3_000,
+        export_interval_millis=INTERVAL_S * 1000,
     )
 
     meter_provider = MeterProvider(
@@ -69,8 +69,9 @@ def setup(service_name):
     )
     set_meter_provider(meter_provider)
 
-    # CPU Meter
-    cpu_meter = get_meter_provider().get_meter("cpu-meter")
+    meter = get_meter_provider().get_meter("metric-meter")
+
+
 
     def cpu_gauge_func(options):
         print("hello")
@@ -83,14 +84,12 @@ def setup(service_name):
         # val = random.randint(0, 20)
         yield Observation(val)
 
-    cpu_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "cpu_gauge",
         callbacks=[cpu_gauge_func]
     )
 
 
-    # RAM meter
-    ram_meter = get_meter_provider().get_meter("cpu-meter")
 
     def ram_gauge_func(options):
         aggregate.measure()
@@ -100,14 +99,12 @@ def setup(service_name):
         # val = random.randint(0,500)
         yield Observation(val)
 
-    ram_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "ram_gauge",
         callbacks=[ram_gauge_func]
     )
 
 
-    # Disk meter
-    disk_meter = get_meter_provider().get_meter("disk-meter")
 
     def disk_gauge_func(options):
         aggregate.measure()
@@ -118,14 +115,12 @@ def setup(service_name):
         val = random.randint(0, 100)
         yield Observation(val)
 
-    disk_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "disk_gauge",
         callbacks=[disk_gauge_func]
     )
 
 
-    # GPU meter
-    gpu_meter = get_meter_provider().get_meter("gpu-meter")
 
     def gpu_gauge_func(options):
         aggregate.measure()
@@ -135,7 +130,7 @@ def setup(service_name):
 
         yield Observation(val)
 
-    gpu_gauge = gpu_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
     )
