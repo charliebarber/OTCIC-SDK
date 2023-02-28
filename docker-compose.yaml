@@ -46,7 +46,7 @@ services:
   svelte-ui:
     container_name: svelte-ui
     build:
-      context: ./dashboard
+      context: ./dashboard/frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
