@@ -1,7 +1,5 @@
 <script>
     import '@picocss/pico';
-    import { Icon } from '@steeze-ui/svelte-icon';
-    import { Home, ArrowsRightLeft } from '@steeze-ui/heroicons';
 </script>
 
 <header class='container-fluid'>
