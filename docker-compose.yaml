@@ -43,6 +43,7 @@ services:
   # ********************
   # Dashboard
   # ********************
+  # Svelte frontend
   svelte-ui:
     container_name: svelte-ui
     build:
@@ -50,6 +51,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+
+  # Express backend
+  express:
+    container_name: express
+    build:
+      context: ./dashboard/backend
+      dockerfile: Dockerfile
+    ports:
+      - "54321:54321"
   
   # ********************
   # Example Apps
