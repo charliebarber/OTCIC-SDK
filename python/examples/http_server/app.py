@@ -52,4 +52,4 @@ def roll_dice():
     print(s)
     return s
 
-otcic.setup("flask-server", os.getpid())
+otcic.setup("flask-server")
