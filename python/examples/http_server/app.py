@@ -8,19 +8,23 @@ print(dir(otcic))
 
 app = Flask(__name__)
 
-@app.route("/rolldice")
-@otcic.all_trace
-def roll_dice():
-    return do_roll()
-
 table: list[list[int]] = []
+
+@otcic.ram_trace
+def make_row():
+    print("Row")
+    row = []
+    for i in range(2**16):
+        v = randint(1, 6)
+        row.append(v)
+    return row
+
+@otcic.all_trace
 def do_roll():
+    print(sys.getsizeof(table))
     value = randint(1, 3)
     if value == 3 and len(table) < 17:
-        row = []
-        for i in range(2**16):
-            row.append(randint(1, 6))
-        table.append(row)
+        table.append(make_row())
         return "Table ADD: {}".format(row[0])
 
     else:
@@ -41,4 +45,11 @@ def do_roll():
                 row[r1] += 1
                 return "Table MOD: {}".format(row[r1])
 
-otcic.setup("flask-server")
+@app.route("/rolldice")
+@otcic.all_trace
+def roll_dice():
+    s = do_roll()
+    print(s)
+    return s
+
+otcic.setup("flask-server", os.getpid())
