@@ -1,10 +1,14 @@
-FROM node:19-alpine
+FROM golang:1.20-alpine as builder
 
-WORKDIR /api
+WORKDIR /app
 
-COPY package*.json /api
-COPY /src ./api/src
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
-RUN npm ci --prod
+COPY *.go ./
 
-CMD ["node", "api/src/app.js"]
+RUN go build -o /api
+
+EXPOSE 3000
+CMD ["/api"]

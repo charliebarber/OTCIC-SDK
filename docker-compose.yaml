@@ -40,6 +40,7 @@ services:
     volumes:
       - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
 
+
   # ********************
   # Dashboard
   # ********************
@@ -52,14 +53,15 @@ services:
     ports:
       - "3000:3000"
 
-  # Express backend
-  express:
-    container_name: express
+  # Go backend
+  api:
+    container_name: api
     build:
       context: ./dashboard/backend
       dockerfile: Dockerfile
     ports:
       - "54321:54321"
+
   
   # ********************
   # Example Apps
