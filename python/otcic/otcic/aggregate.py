@@ -35,7 +35,7 @@ class AggregateModel:
             start = self.next_interval - self.interval
             for tracer in tracer_values:
                 tracer.collapse(start, self.interval)
-            self.next_interval = self.next_interval + self.intervals
+            self.next_interval = self.next_interval + self.interval
 
         self.lock = False
 
