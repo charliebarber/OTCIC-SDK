@@ -21,6 +21,9 @@ from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from .aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
 
+import requests
+url = "http://api:54321/api/apps"
+
 # delete this
 import random
 
@@ -41,6 +44,13 @@ def ram_trace(func):
     return wrapper
 
 def setup(service_name):
+    # Send app name and language to API
+    appObject = {
+        'appName': service_name,
+        'language': "python"
+    }
+    requests.post(url, appObject)
+
     # OpenTelemetry exporter setup
     resource = Resource(attributes={
         SERVICE_NAME: service_name
