@@ -107,7 +107,7 @@ func main() {
 
 	api := app.Group("/api")
 
-	apps := Applications{}
+	apps := make(map[string]string)
 
 	api.Post("/apps", func(c *fiber.Ctx) error {
 		received := new(Application)
@@ -116,7 +116,7 @@ func main() {
 			return c.Status(400).SendString(err.Error())
 		}
 
-		apps.Applications = append(apps.Applications, Application{received.AppName, received.Language})
+		apps[received.AppName] = received.Language
 
 		return c.SendString("Received app " + received.AppName)
 	})
@@ -127,6 +127,10 @@ func main() {
 
 	api.Get("/app/:appName/:metric/:duration", func(c *fiber.Ctx) error {
 		baseUrl := "http://prometheus:9090/api/v1/query?query="
+
+		if _, ok := apps[c.Params("appName")]; !ok {
+			return c.Status(404).SendString("App does not exist")
+		}
 
 		var result PromQLResultData
 		switch c.Params("metric") {

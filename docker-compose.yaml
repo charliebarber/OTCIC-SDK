@@ -52,6 +52,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    # Want the examples to be running before starting DB
+    depends_on:
+      - flask_server
+      - api
 
   # Go backend
   api:
@@ -72,6 +76,7 @@ services:
     build:
       context: ./python
       dockerfile: ./examples/http_server/Dockerfile
+    # need api and collector running to start getting metrics
     depends_on:
-      collector:
-        condition: service_started
+      - collector
+      - api
