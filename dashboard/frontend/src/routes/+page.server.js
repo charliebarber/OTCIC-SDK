@@ -1,12 +1,13 @@
-import { apps } from "../../data";
-import { hyphenateStr } from "../../utils";
+import { hyphenateStr } from "../utils";
 
+/** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
     const res = await fetch('http://api:54321/api/apps')
-    const apps = await res.json()
+    const appsRes = await res.json()
+    console.log("APPS", appsRes)
 
     return {
-        apps: apps.applications.map((app) => ({
+        apps: appsRes.applications.map((app) => ({
             name: app.appName,
             url: hyphenateStr(app.appName),
             language: app.language,

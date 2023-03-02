@@ -122,7 +122,13 @@ func main() {
 	})
 
 	api.Get("/apps", func(c *fiber.Ctx) error {
-		return c.JSON(apps)
+		appsJson := Applications{}
+
+		for name, language := range apps {
+			appsJson.Applications = append(appsJson.Applications, Application{name, language})
+		}
+
+		return c.JSON(appsJson)
 	})
 
 	api.Get("/app/:appName/:metric/:duration", func(c *fiber.Ctx) error {
