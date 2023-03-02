@@ -7,6 +7,7 @@ from .ddqueue import DataDoubleQueue
 class GPUTracer(DataDoubleQueue):
     def __init__(self, process: Process):
         super().__init__(process)
+        self.warned = False
 
     def measure(self):
         try:
@@ -27,9 +28,11 @@ class GPUTracer(DataDoubleQueue):
 
             self.log(memory)
         except Exception as e:
-            print("Unsupported GPU, use NVIDIA, returning 0")
-            print(e)
-            self.log(0)
+            if not self.warned:
+                self.warned = True
+                print("Unsupported GPU, use NVIDIA, returning 0")
+                print(e)
+                self.log(0)
 
     def collapse(self, start: int, interval: int):
         end = start + interval
