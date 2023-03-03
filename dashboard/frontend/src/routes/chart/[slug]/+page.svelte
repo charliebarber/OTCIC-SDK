@@ -33,14 +33,36 @@
     <div>
         <span>CPU Usage</span>
         <Line 
-            data={data.cpu}
+            data={{
+                labels: data.cpu.labels,
+                datasets: [{
+                    data: data.cpu.data,
+                    label: 'CPU use %',
+                    fill: true,
+                    backgroundColor: 'rgba(225, 204,230, .3)',
+                    borderColor: 'rgb(205, 130, 158)',
+                    pointBorderColor: 'rgb(205, 130,1 58)',
+                    pointBackgroundColor: 'rgb(255, 255, 255)',
+            }]
+            }}
         />
     </div>
 
     <div>
         <span>RAM Usage</span>
         <Line 
-            data={data.ram}
+            data={{
+                labels: data.ram.labels,
+                datasets: [{
+                    data: data.ram.data,
+                    label: 'RAM use %',
+                    fill: true,
+                    backgroundColor: 'rgba(225, 204,230, .3)',
+                    borderColor: 'rgb(205, 130, 158)',
+                    pointBorderColor: 'rgb(205, 130,1 58)',
+                    pointBackgroundColor: 'rgb(255, 255, 255)',
+            }]
+            }}
         />
     </div>
 </div>

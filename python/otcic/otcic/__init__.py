@@ -26,7 +26,7 @@ url = "http://api:54321/api/apps"
 # delete this
 import random
 
-INTERVAL_S = 3
+INTERVAL_S = 10
 aggregate = AggregateModel(INTERVAL_S)
 
 def all_trace(func):

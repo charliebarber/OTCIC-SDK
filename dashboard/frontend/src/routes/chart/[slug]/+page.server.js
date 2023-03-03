@@ -20,16 +20,18 @@ export async function load({ params }) {
     return { 
         app,
         cpu: {
-            datasets: [{
-                data: cpuData.values.map((value) => [value.time, value.val])
-            }],
-            labels: ['Time', 'CPU measure']
+            data: cpuData.values.map((value) => value.val),
+            labels: cpuData.values.map((value) => {
+                const date = new Date(value.time * 1000)
+                return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+            })
         },
         ram: {
-            datasets: [{
-                data: ramData.values.map((value) => [value.time, value.val])
-            }],
-            labels: ['Time', 'RAM Used']
+            data: ramData.values.map((value) => value.val),
+            labels: ramData.values.map((value) => {
+                const date = new Date(value.time * 1000)
+                return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+            })
         }
     };
   }
