@@ -11,7 +11,7 @@ conda create -n otcic --file requirements.txt
 
 This is a simple HTTP web server powered by Flask. To run the example use:
 ```
-flask --app examples/http_server.py run
+flask --app python/examples/http_server/app.py run
 ```
 
 If you have the Collector running as described in the parent directory, this will start logging the results to a `metrics.json` file. 

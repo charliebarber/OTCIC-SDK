@@ -19,8 +19,14 @@ class AggregateModel:
             "disk": DiskTracer(self.process),
             "gpu": GPUTracer(self.process)
         }
+        self.lock = False
 
     def measure(self):
+        if self.lock:
+            return
+
+        self.lock = True
+
         tracer_values = self.tracers.values()
         for tracer in tracer_values:
             tracer.measure()
@@ -29,6 +35,9 @@ class AggregateModel:
             start = self.next_interval - self.interval
             for tracer in tracer_values:
                 tracer.collapse(start, self.interval)
+            self.next_interval = self.next_interval + self.interval
+
+        self.lock = False
 
     def get_metrics(self) -> dict[str, list[tuple[int, int, Any]]]:
         return {key: values.aggregate for key, values in self.tracers.items()}
