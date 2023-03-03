@@ -1,5 +1,5 @@
 # Build with NPM
-FROM node:19 as builder
+FROM node:19-alpine as builder
 
 WORKDIR /dashboard
 
@@ -9,7 +9,7 @@ RUN npm install
 
 COPY . ./
 RUN npm run build
-RUN npm ci --prod
+RUN npm ci --omit-dev
 
 FROM node:19-alpine
 COPY package.json ./
