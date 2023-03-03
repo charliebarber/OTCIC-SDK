@@ -39,6 +39,9 @@
 
     <div>
         <span>RAM Usage</span>
+        <Line 
+            data={data.ram}
+        />
     </div>
 </div>
 

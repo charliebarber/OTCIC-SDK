@@ -12,6 +12,9 @@ export async function load({ params }) {
     const cpuRes = await fetch(`http://api:54321/api/app/${params.slug}/cpu/5m`)
     const cpuData = await cpuRes.json()
 
+    const ramRes = await fetch(`http://api:54321/api/app/${params.slug}/ram/5m`)
+    const ramData = await ramRes.json()
+
     console.log(cpuData)
 
     return { 
@@ -21,6 +24,12 @@ export async function load({ params }) {
                 data: cpuData.values.map((value) => [value.time, value.val])
             }],
             labels: ['Time', 'CPU measure']
+        },
+        ram: {
+            datasets: [{
+                data: ramData.values.map((value) => [value.time, value.val])
+            }],
+            labels: ['Time', 'RAM Used']
         }
     };
   }
