@@ -39,6 +39,41 @@ services:
       - --web.enable-remote-write-receiver
     volumes:
       - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
+
+
+  # ********************
+  # Dashboard
+  # ********************
+  # Svelte frontend
+  svelte-ui:
+    container_name: svelte-ui
+    build:
+      context: ./dashboard/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    # Want the examples to be running before starting DB
+    depends_on:
+      - flask_server
+      - api
+
+  # Go backend
+  api:
+    container_name: api
+    build:
+      context: ./dashboard/backend
+      dockerfile: Dockerfile
+    ports:
+      - "54321:54321"
+
+  # Dev mode for Svelte
+  # svelte-dev:
+  #   container_name: svelte-dev
+  #   build:
+  #     context: ./dashboard/frontend
+  #     dockerfile: DevDockerfile
+  #   ports:
+  #     - "5173:5173"
   
   # ********************
   # Example Apps
@@ -49,6 +84,7 @@ services:
     build:
       context: ./python
       dockerfile: ./examples/http_server/Dockerfile
+    # need api and collector running to start getting metrics
     depends_on:
-      collector:
-        condition: service_started
+      - collector
+      - api
