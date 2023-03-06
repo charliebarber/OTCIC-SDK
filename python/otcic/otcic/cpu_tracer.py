@@ -13,6 +13,7 @@ class CPUTracer(DataDoubleQueue):
         new_time = time.monotonic()
         new_proc = self.process.cpu_times().user
         time_diff = (new_time - self.last_time)
+        print("Time Diff:", time_diff)
 
         cpu_usage = 1 if time_diff == 0 else (new_proc - self.last_proc) / time_diff
 
