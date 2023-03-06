@@ -10,6 +10,7 @@ conda create -n otcic --file python/requirements.txt
 To install dependencies with pip:
 ```
 pip install -r python/requirements.txt
+pip install -e python/otcic
 ```
 
 ## HTTP Server
