@@ -26,15 +26,8 @@ url = "http://api:54321/api/apps"
 # delete this
 import random
 
-INTERVAL_S = 10
+INTERVAL_S = 3
 aggregate = AggregateModel(INTERVAL_S)
-
-def all_trace(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        aggregate.measure()
-        return func(*args, **kwargs)
-    return wrapper
 
 def ram_trace(func):
     @wraps(func)
