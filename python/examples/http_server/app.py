@@ -4,8 +4,6 @@ import sys
 import os
 import otcic
 
-print(dir(otcic))
-
 app = Flask(__name__)
 
 table: list[list[int]] = []
@@ -24,7 +22,8 @@ def do_roll():
     print(sys.getsizeof(table))
     value = randint(1, 3)
     if value == 3 and len(table) < 17:
-        table.append(make_row())
+        row = make_row()
+        table.append(row)
         return "Table ADD: {}".format(row[0])
 
     else:
