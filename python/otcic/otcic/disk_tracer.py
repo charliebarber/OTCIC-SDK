@@ -36,5 +36,4 @@ class DiskTracer(DataDoubleQueue):
         else:
             if not self.warned:
                 self.warned = True
-                print("MacOS not supported for disk tracer")
                 self.aggregate.append((start, interval, ReadWriteBytes(0, 0)))
