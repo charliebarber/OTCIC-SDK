@@ -11,7 +11,6 @@ class DataDoubleQueue:
     def log(self, entry: Any):
         entry_time = time.time()
         self.real_time.append((entry_time, entry))
-        print("{}:".format(self.__repr__), self.real_time)
 
     def measure(self):
         pass
