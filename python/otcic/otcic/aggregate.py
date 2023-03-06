@@ -12,6 +12,8 @@ class AggregateModel:
     def __init__(self, interval: int):
         self.interval = interval
         self.process = Process()
+        print("Process ID:", self.process.pid)
+        print("Parent Process ID:", self.process.ppid())
         self.next_interval = int(time.time() // interval) * interval
         self.tracers: dict[str, DataDoubleQueue] = {
             "cpu": CPUTracer(self.process),
