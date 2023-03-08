@@ -148,6 +148,8 @@ func main() {
 			result = fetchMetrics(baseUrl, c.Params("appName"), "disk_gauge", c.Params("duration"))
 		case "gpu":
 			result = fetchMetrics(baseUrl, c.Params("appName"), "gpu_gauge", c.Params("duration"))
+		case "vram":
+			result = fetchMetrics(baseUrl, c.Params("appName"), "vram_gauge", c.Params("duration"))
 		}
 
 		return c.JSON(result)
