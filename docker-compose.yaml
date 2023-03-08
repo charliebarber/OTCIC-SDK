@@ -88,3 +88,5 @@ services:
     depends_on:
       - collector
       - api
+    ports:
+      - "80:80"

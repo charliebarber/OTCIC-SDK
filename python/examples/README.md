@@ -4,7 +4,13 @@ Here are some examples demonstrating how OTCIC can be used with Python applicati
 
 To install all dependencies with Conda use:
 ```
-conda create -n otcic --file requirements.txt
+conda create -n otcic --file python/requirements.txt
+```
+
+To install dependencies with pip:
+```
+pip install -r python/requirements.txt
+pip install -e python/otcic
 ```
 
 ## HTTP Server
@@ -13,5 +19,8 @@ This is a simple HTTP web server powered by Flask. To run the example use:
 ```
 flask --app python/examples/http_server/app.py run
 ```
+
+To ping the server, go to: `localhost:5000/rolldice`
+If running on docker, go to `127.0.0.1/rolldice`
 
 If you have the Collector running as described in the parent directory, this will start logging the results to a `metrics.json` file. 

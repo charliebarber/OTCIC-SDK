@@ -9,7 +9,6 @@ class RAMTracer(DataDoubleQueue):
     def measure(self):
         mem_bytes = self.process.memory_info().rss
         self.log(mem_bytes)
-        print("RAM Measure: {}".format(mem_bytes))
 
     def collapse(self, start: int, interval: int):
         end = start + interval
@@ -35,4 +34,3 @@ class RAMTracer(DataDoubleQueue):
                 self.real_time.pop(0)
         
         self.aggregate.append((start, interval, avg))
-        print("RAM Collapse: {}".format(avg))

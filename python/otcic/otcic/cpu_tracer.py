@@ -17,7 +17,6 @@ class CPUTracer(DataDoubleQueue):
         cpu_usage = 1 if time_diff == 0 else (new_proc - self.last_proc) / time_diff
 
         self.aggregate.append((start, interval, cpu_usage))
-        print("CPU Collapse: {}".format(cpu_usage))
 
         self.last_time = new_time
         self.last_proc = new_proc

@@ -26,15 +26,8 @@ url = "http://api:54321/api/apps"
 # delete this
 import random
 
-INTERVAL_S = 10
+INTERVAL_S = 3
 aggregate = AggregateModel(INTERVAL_S)
-
-def all_trace(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        aggregate.measure()
-        return func(*args, **kwargs)
-    return wrapper
 
 def ram_trace(func):
     @wraps(func)
@@ -140,3 +133,18 @@ def setup(service_name):
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
     )
+
+
+
+    def vram_gauge_func(options):
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["vram"]
+        val = aggregate_data[len(aggregate_data)-1][2]
+
+        yield Observation(val)
+
+        meter.create_observable_gauge(
+            "vram_gauge",
+            callbacks=[vram_gauge_func]
+        )
