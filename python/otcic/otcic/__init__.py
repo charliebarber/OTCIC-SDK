@@ -133,3 +133,18 @@ def setup(service_name):
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
     )
+
+
+
+    def vram_gauge_func(options):
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["vram"]
+        val = aggregate_data[len(aggregate_data)-1][2]
+
+        yield Observation(val)
+
+        meter.create_observable_gauge(
+            "vram_gauge",
+            callbacks=[vram_gauge_func]
+        )
