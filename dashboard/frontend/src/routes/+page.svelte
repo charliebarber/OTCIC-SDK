@@ -31,9 +31,10 @@
             <th scope="col">App</th>
             <th scope="col">SCI Score</th>
             <th scope="col">CPU %</th>
-            <th scope="col">RAM %</th>
-            <th scope="col">Disk %</th>
+            <th scope="col">RAM bytes</th>
+            <th scope="col">Disk bytes</th>
             <th scope="col">GPU %</th>
+            <th scope="col">VRAM bytes</th>
         </thead>
 
         <tbody>
@@ -46,6 +47,7 @@
                     <td>{app.ram}</td>
                     <td>{app.disk}</td>
                     <td>{app.gpu}</td>
+                    <td>{app.vram}</td>
                 </tr>
             {/each}
         </tbody>
