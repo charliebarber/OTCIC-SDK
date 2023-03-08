@@ -144,7 +144,7 @@ def setup(service_name):
 
         yield Observation(val)
 
-        meter.create_observable_gauge(
-            "vram_gauge",
-            callbacks=[vram_gauge_func]
-        )
+    meter.create_observable_gauge(
+        "vram_gauge",
+        callbacks=[vram_gauge_func]
+    )

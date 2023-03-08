@@ -15,7 +15,8 @@ export async function load({ params }) {
             cpu: "n/a",
             ram: "n/a",
             disk: "n/a",
-            gpu: "n/a"
+            gpu: "n/a",
+            vram: "n/a"
         }))
     }
 }
