@@ -37,7 +37,7 @@
                 labels: data.cpu.labels,
                 datasets: [{
                     data: data.cpu.data,
-                    label: 'CPU use %',
+                    label: 'CPU Usage %',
                     fill: true,
                     backgroundColor: 'rgba(225, 204,230, .3)',
                     borderColor: 'rgb(205, 130, 158)',
@@ -55,7 +55,7 @@
                 labels: data.ram.labels,
                 datasets: [{
                     data: data.ram.data,
-                    label: 'RAM use %',
+                    label: 'RAM Usage bytes',
                     fill: true,
                     backgroundColor: 'rgba(225, 204,230, .3)',
                     borderColor: 'rgb(205, 130, 158)',
@@ -71,10 +71,56 @@
 
 <div class=grid>
     <div>
-        <span>Disk Usage</span>
+        <span>Disk I/O</span>
+        <Line 
+            data={{
+                labels: data.disk.labels,
+                datasets: [{
+                    data: data.disk.data,
+                    label: 'Disk I/O bytes',
+                    fill: true,
+                    backgroundColor: 'rgba(225, 204,230, .3)',
+                    borderColor: 'rgb(205, 130, 158)',
+                    pointBorderColor: 'rgb(205, 130,1 58)',
+                    pointBackgroundColor: 'rgb(255, 255, 255)',
+            }]
+            }}
+        />
     </div>
 
     <div>
         <span>GPU Usage</span>
+        <Line 
+            data={{
+                labels: data.gpu.labels,
+                datasets: [{
+                    data: data.gpu.data,
+                    label: 'GPU Usage %',
+                    fill: true,
+                    backgroundColor: 'rgba(225, 204,230, .3)',
+                    borderColor: 'rgb(205, 130, 158)',
+                    pointBorderColor: 'rgb(205, 130,1 58)',
+                    pointBackgroundColor: 'rgb(255, 255, 255)',
+            }]
+            }}
+        />
+    </div>
+
+    <div>
+        <span>VRAM Usage</span>
+        <Line 
+            data={{
+                labels: data.vram.labels,
+                datasets: [{
+                    data: data.vram.data,
+                    label: 'VRAM Usage bytes',
+                    fill: true,
+                    backgroundColor: 'rgba(225, 204,230, .3)',
+                    borderColor: 'rgb(205, 130, 158)',
+                    pointBorderColor: 'rgb(205, 130,1 58)',
+                    pointBackgroundColor: 'rgb(255, 255, 255)',
+            }]
+            }}
+        />
     </div>
 </div>
