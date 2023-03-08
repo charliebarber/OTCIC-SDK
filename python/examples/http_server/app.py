@@ -7,6 +7,9 @@ import otcic
 app = Flask(__name__)
 
 table: list[list[int]] = []
+filename = "table.txt"
+with open(filename, "w") as file:
+    file.write("Table\n")
 
 def expensive_function():
     return (r.random() ** r.randint(1, 3)) / (r.random() + 1)
@@ -16,7 +19,6 @@ def table_sizeof(table: list[list[int]]):
 
 @otcic.ram_trace
 def make_row():
-    print("Row")
     row = []
     for i in range(2**16):
         v = expensive_function()
@@ -30,6 +32,8 @@ def do_roll():
     print("Table size:", table_sizeof(table))
     if len(table) < 16:
         row = make_row()
+        with open(filename, "a") as file:
+            file.write("{}\n".format(row[0]))
         table.append(row)
         msg = "Table ADD: {}".format(row[0])
 
