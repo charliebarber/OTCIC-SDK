@@ -13,7 +13,6 @@ from opentelemetry.sdk.metrics.export import (
     PeriodicExportingMetricReader,
     AggregationTemporality
 )
-# from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
@@ -27,14 +26,8 @@ url = "http://api:54321/api/apps"
 # delete this
 import random
 
-aggregate = AggregateModel(3)
-
-def all_trace(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        aggregate.measure()
-        return func(*args, **kwargs)
-    return wrapper
+INTERVAL_S = 3
+aggregate = AggregateModel(INTERVAL_S)
 
 def ram_trace(func):
     @wraps(func)
@@ -67,10 +60,9 @@ def setup(service_name):
     #     preferred_temporality=temporality_delta
     # )
 
-    # Gets a reading every 3000ms (3s)
     metric_reader = PeriodicExportingMetricReader(
         exporter,
-        export_interval_millis=3_000,
+        export_interval_millis=INTERVAL_S * 1000,
     )
 
     meter_provider = MeterProvider(
@@ -79,45 +71,39 @@ def setup(service_name):
     )
     set_meter_provider(meter_provider)
 
-    # CPU Meter
-    cpu_meter = get_meter_provider().get_meter("cpu-meter")
+    meter = get_meter_provider().get_meter("metric-meter")
+
+
 
     def cpu_gauge_func(options):
-        print("hello")
         aggregate.measure()
         metrics = aggregate.get_metrics()
         aggregate_data = metrics["cpu"]
-        print("aggregte_data", aggregate_data)
         val = aggregate_data[len(aggregate_data)-1][2]
-        
-        # val = random.randint(0, 20)
+
         yield Observation(val)
 
-    cpu_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "cpu_gauge",
         callbacks=[cpu_gauge_func]
     )
 
 
-    # RAM meter
-    ram_meter = get_meter_provider().get_meter("cpu-meter")
 
     def ram_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
         aggregate_data = metrics["ram"]
         val = aggregate_data[len(aggregate_data)-1][2]
-        # val = random.randint(0,500)
+
         yield Observation(val)
 
-    ram_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "ram_gauge",
         callbacks=[ram_gauge_func]
     )
 
 
-    # Disk meter
-    disk_meter = get_meter_provider().get_meter("disk-meter")
 
     def disk_gauge_func(options):
         aggregate.measure()
@@ -125,17 +111,15 @@ def setup(service_name):
         aggregate_data = metrics["disk"]
         pair = aggregate_data[len(aggregate_data)-1][2]
         val = pair[0] + pair[1]
-        val = random.randint(0, 100)
+
         yield Observation(val)
 
-    disk_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "disk_gauge",
         callbacks=[disk_gauge_func]
     )
 
 
-    # GPU meter
-    gpu_meter = get_meter_provider().get_meter("gpu-meter")
 
     def gpu_gauge_func(options):
         aggregate.measure()
@@ -145,7 +129,22 @@ def setup(service_name):
 
         yield Observation(val)
 
-    gpu_gauge = gpu_meter.create_observable_gauge(
+    meter.create_observable_gauge(
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
     )
+
+
+
+    def vram_gauge_func(options):
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["vram"]
+        val = aggregate_data[len(aggregate_data)-1][2]
+
+        yield Observation(val)
+
+        meter.create_observable_gauge(
+            "vram_gauge",
+            callbacks=[vram_gauge_func]
+        )

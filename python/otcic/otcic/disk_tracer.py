@@ -18,6 +18,8 @@ class DiskTracer(DataDoubleQueue):
             counters = self.process.io_counters()
             self.last_read: int = counters.read_bytes
             self.last_write: int = counters.write_bytes
+        else:
+            self.warned = False
 
     def collapse(self, start: int, interval: int):
         if not IS_MACOS:
@@ -32,5 +34,7 @@ class DiskTracer(DataDoubleQueue):
             self.last_write = new_write
 
         else:
-            print("MacOS not supported for disk tracer")
-            self.aggregate.append((start, interval, ReadWriteBytes(0, 0)))
+            if not self.warned:
+                self.warned = True
+                print("MacOS not supported for disk tracer")
+                self.aggregate.append((start, interval, ReadWriteBytes(0, 0)))

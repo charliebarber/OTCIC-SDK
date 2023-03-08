@@ -12,8 +12,11 @@ class CPUTracer(DataDoubleQueue):
     def collapse(self, start: int, interval: int):
         new_time = time.monotonic()
         new_proc = self.process.cpu_times().user
+        time_diff = (new_time - self.last_time)
 
-        self.aggregate.append((start, interval, (new_proc - self.last_proc) / (new_time - self.last_time)))
+        cpu_usage = 1 if time_diff == 0 else (new_proc - self.last_proc) / time_diff
+
+        self.aggregate.append((start, interval, cpu_usage))
 
         self.last_time = new_time
         self.last_proc = new_proc
