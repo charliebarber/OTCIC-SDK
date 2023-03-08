@@ -34,7 +34,6 @@ class GPUTracer(DataDoubleQueue):
                 print(e)
 
         self.aggregate.append((start, interval, gpu_average))
-        print("GPU Collapse: {}".format(gpu_average))
 
 class VRAMTracer(DataDoubleQueue):
     def __init__(self, process: Process):
@@ -80,4 +79,3 @@ class VRAMTracer(DataDoubleQueue):
                 self.real_time.pop(0)
         
         self.aggregate.append((start, interval, avg))
-        print("VRAM Collapse: {}".format(avg))
