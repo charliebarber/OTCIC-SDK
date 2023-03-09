@@ -15,9 +15,9 @@ type Application struct {
 	AppName  string `json:"appName"`
 	Language string `json:"language"`
 	Sci      string `json:"sci"`
-	CpuVal   string `json:""cpuVal"`
+	CpuVal   string `json:"cpuVal"`
 	RamVal   string `json:"ramVal"`
-	DiskVal  string `json:"DiskVal"`
+	DiskVal  string `json:"diskVal"`
 	GpuVal   string `json:"gpuVal"`
 	VramVal  string `json:"vramVal"`
 }
