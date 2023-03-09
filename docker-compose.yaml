@@ -40,7 +40,6 @@ services:
     volumes:
       - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
 
-
   # ********************
   # Dashboard
   # ********************
@@ -51,7 +50,7 @@ services:
       context: ./dashboard/frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "80:80"
     # Want the examples to be running before starting DB
     depends_on:
       - flask_server
@@ -74,7 +73,7 @@ services:
   #     dockerfile: DevDockerfile
   #   ports:
   #     - "5173:5173"
-  
+
   # ********************
   # Example Apps
   # ********************
@@ -89,4 +88,4 @@ services:
       - collector
       - api
     ports:
-      - "80:80"
+      - "4949:4949"
