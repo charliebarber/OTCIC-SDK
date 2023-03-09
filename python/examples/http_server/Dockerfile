@@ -18,5 +18,5 @@ COPY examples/http_server /http_server
 
 # Start HTTP example
 #CMD ["python3", "-m", "flask", "run"]
-CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
-# this will pass through docker, accessible through 127.0.0.1/rolldice
+CMD ["flask", "run", "--host=0.0.0.0", "--port=4949"]
+# this will pass through docker, accessible through 127.0.0.1:4949/rolldice

@@ -14,6 +14,12 @@ import (
 type Application struct {
 	AppName  string `json:"appName"`
 	Language string `json:"language"`
+	Sci      string `json:"sci"`
+	CpuVal   string `json:"cpuVal"`
+	RamVal   string `json:"ramVal"`
+	DiskVal  string `json:"diskVal"`
+	GpuVal   string `json:"gpuVal"`
+	VramVal  string `json:"vramVal"`
 }
 
 type Applications struct {
@@ -42,12 +48,41 @@ type PromQLData struct {
 type PromQLResultData struct {
 	ResultMetric PromQLResultMetricData `json:"metric"`
 	ResultValues []Value                `json:"values"`
+	ResultValue  Value                  `json:"value"`
+}
+
+type PromQLResultDataSingular struct {
+	ResultMetric PromQLResultMetricData `json:"metric"`
+	ResultValue  Value                  `json:"value"`
 }
 
 type PromQLResultMetricData struct {
 	ResultName string `json:"__name__"`
 	ResultJob  string `json:"job"`
 }
+
+// func (promQLData *PromQLData) UnmarshalJSON(data []byte) error {
+// 	var tmp PromQLData
+//
+// 	if err := json.Unmarshal(data, &tmp); err != nil {
+// 		return err
+// 	}
+//
+// 	switch tmp.ResultType {
+// 	case "matrix":
+// 		*promQLData = PromQLData{
+// 			ResultType: tmp.ResultType,
+// 			ResultData: []PromQLResultData{},
+// 		}
+// 	case "vector":
+// 		*promQLData = PromQLData{
+// 			ResultType: tmp.ResultType,
+// 			ResultData: []PromQLResultDataSingular(tmp.ResultData),
+// 		}
+// 	}
+//
+// 	return nil
+// }
 
 func (value *Value) UnmarshalJSON(data []byte) error {
 	var tmp []interface{}
@@ -98,6 +133,44 @@ func fetchMetrics(baseUrl string, appName string, metric string, duration string
 	return promResponse.ResponseData.ResultData[0]
 }
 
+func fetchSingleMetric(baseUrl string, appName string, metric string) Value {
+	promResponse := PromQLResponse{}
+
+	url := baseUrl + metric + "{job=\"" + appName + "\"}"
+
+	client := http.Client{
+		Timeout: time.Second * 3,
+	}
+
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		log.Print(err)
+	}
+
+	req.Header.Set("User-Agent", "otcic-api")
+
+	res, getErr := client.Do(req)
+	if getErr != nil {
+		log.Print(getErr)
+	}
+
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+
+	body, readErr := ioutil.ReadAll(res.Body)
+	if readErr != nil {
+		log.Print(readErr)
+	}
+
+	jsonErr := json.Unmarshal(body, &promResponse)
+	if jsonErr != nil {
+		log.Print(jsonErr)
+	}
+
+	return promResponse.ResponseData.ResultData[0].ResultValue
+}
+
 func main() {
 	app := fiber.New(fiber.Config{
 		AppName:     "otcic-api",
@@ -124,8 +197,38 @@ func main() {
 	api.Get("/apps", func(c *fiber.Ctx) error {
 		appsJson := Applications{}
 
+		baseUrl := "http://prometheus:9090/api/v1/query?query="
 		for name, language := range apps {
-			appsJson.Applications = append(appsJson.Applications, Application{name, language})
+			if c.Query("metric") == "true" {
+				sci := "n/a"
+				cpu := fetchSingleMetric(baseUrl, name, "cpu_gauge")
+				ram := fetchSingleMetric(baseUrl, name, "ram_gauge")
+				disk := fetchSingleMetric(baseUrl, name, "disk_gauge")
+				gpu := fetchSingleMetric(baseUrl, name, "gpu_gauge")
+				vram := fetchSingleMetric(baseUrl, name, "vram_gauge")
+
+				appsJson.Applications = append(appsJson.Applications, Application{
+					name,
+					language,
+					sci,
+					cpu.Val,
+					ram.Val,
+					disk.Val,
+					gpu.Val,
+					vram.Val,
+				})
+			} else {
+				appsJson.Applications = append(appsJson.Applications, Application{
+					name,
+					language,
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+				})
+			}
 		}
 
 		return c.JSON(appsJson)
