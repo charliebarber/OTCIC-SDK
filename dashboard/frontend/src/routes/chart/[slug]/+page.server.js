@@ -29,8 +29,6 @@ export async function load({ params }) {
     const vramRes = await fetch(`http://api:54321/api/app/${params.slug}/vram/5m`)
     const vramData = await vramRes.json()
 
-    console.log(cpuData)
-
     return { 
         app,
         cpu: {

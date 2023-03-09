@@ -95,7 +95,24 @@ func fetchMetrics(baseUrl string, appName string, metric string, duration string
 		log.Print(jsonErr)
 	}
 
-	return promResponse.ResponseData.ResultData[0]
+	if len(promResponse.ResponseData.ResultData) > 0 {
+		return promResponse.ResponseData.ResultData[0]
+	} else {
+		emptyResult := PromQLResultData{
+			ResultMetric: PromQLResultMetricData{
+				ResultName: metric,
+				ResultJob:  appName,
+			},
+			ResultValues: []Value{
+				{
+					Time: "n/a",
+					Val:  "n/a",
+				},
+			},
+		}
+
+		return emptyResult
+	}
 }
 
 func main() {
@@ -132,6 +149,7 @@ func main() {
 	})
 
 	api.Get("/app/:appName/:metric/:duration", func(c *fiber.Ctx) error {
+		fmt.Println(c.OriginalURL())
 		baseUrl := "http://prometheus:9090/api/v1/query?query="
 
 		if _, ok := apps[c.Params("appName")]; !ok {
