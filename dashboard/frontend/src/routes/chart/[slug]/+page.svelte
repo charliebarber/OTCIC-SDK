@@ -43,7 +43,7 @@
                     borderColor: 'rgb(205, 130, 158)',
                     pointBorderColor: 'rgb(205, 130,1 58)',
                     pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
+                 }]
             }}
         />
     </div>
@@ -61,7 +61,7 @@
                     borderColor: 'rgb(205, 130, 158)',
                     pointBorderColor: 'rgb(205, 130,1 58)',
                     pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
+                }]
             }}
         />
     </div>
@@ -83,7 +83,7 @@
                     borderColor: 'rgb(205, 130, 158)',
                     pointBorderColor: 'rgb(205, 130,1 58)',
                     pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
+                }]
             }}
         />
     </div>
@@ -101,7 +101,7 @@
                     borderColor: 'rgb(205, 130, 158)',
                     pointBorderColor: 'rgb(205, 130,1 58)',
                     pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
+                }]
             }}
         />
     </div>
@@ -119,7 +119,7 @@
                     borderColor: 'rgb(205, 130, 158)',
                     pointBorderColor: 'rgb(205, 130,1 58)',
                     pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
+                }]
             }}
         />
     </div>
