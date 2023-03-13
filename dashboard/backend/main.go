@@ -179,7 +179,9 @@ func main() {
 		JSONDecoder: json.Unmarshal,
 	})
 
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+	}))
 
 	api := app.Group("/api")
 
