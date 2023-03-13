@@ -9,7 +9,6 @@ export function getFormattedDate(value) {
 
 const url = `http://${import.meta.env.URL || "localhost"}:54321`
 
->>>>>>> Stashed changes
 export async function fetchMetrics(appName) {
     const cpuRes = await fetch(`${url}/api/app/${appName}/cpu/5m`)
     const cpuData = await cpuRes.json()
