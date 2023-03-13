@@ -14,7 +14,8 @@ const {
 const axios = require("axios").default;
 const os = require("os");
 
-url = "http://api:54321/api/apps";
+const url = "http://api:54321/api/apps";
+const INTERVAL = 3;
 
 function setup(serviceName) {
   axios
@@ -26,7 +27,9 @@ function setup(serviceName) {
       console.log("Error posting new app to API: ", err);
     });
 
-  const metricExporter = new OTLPMetricExporter({});
+  const metricExporter = new OTLPMetricExporter({
+    url: "http://collector:4317",
+  });
 
   const meterProvider = new MeterProvider({
     resource: new Resource({
@@ -36,20 +39,18 @@ function setup(serviceName) {
 
   const metricReader = new PeriodicExportingMetricReader({
     exporter: metricExporter,
-
-    // Default is 60000ms (60 seconds). Set to 3 seconds for demonstrative purposes only.
-    exportIntervalMillis: 3000,
+    exportIntervalMillis: INTERVAL * 1000,
   });
 
   meterProvider.addMetricReader(metricReader);
 
-  // CPU Meter readings
-  const cpuMeter = meterProvider.getMeter("cpu-meter");
+  const meter = meterProvider.getMeter("metric-meter");
 
+  // CPU Meter readings
   let prevCpuTime = process.cpuUsage();
 
   // Gauge to monitor CPU use by CPU time used by process
-  const cpuGauge = cpuMeter.createObservableGauge("cpu-time", {
+  const cpuGauge = meter.createObservableGauge("cpu_gauge", {
     description: "CPU time",
     unit: "microseconds",
   });
@@ -62,11 +63,8 @@ function setup(serviceName) {
     result.observe(usage.user);
   });
 
-  // Memory meter readings
-  const memoryMeter = meterProvider.getMeter("memory-meter");
-
   // Gauge to monitor memory use as a %
-  const memoryUsageGauge = memoryMeter.createObservableGauge("memory-usage", {
+  const memoryUsageGauge = meter.createObservableGauge("ram_gauge", {
     description: "Memory usage",
     unit: "%",
   });
@@ -75,19 +73,28 @@ function setup(serviceName) {
     const { heapTotal, heapUsed } = process.memoryUsage();
     const totalMemory = os.totalmem();
     const percent = heapTotal / totalMemory;
-    console.log("percent", percent);
     result.observe(percent);
   });
 
-  // Gauge to monitor how much heap memory is used by process
-  const memoryHeapUsed = memoryMeter.createObservableGauge("heap-used", {
-    description: "Heap used",
-    unit: "MB",
+  // Disk gauge
+  const diskGauge = meter.createObservableGauge("disk_gauge", {});
+
+  diskGauge.addCallback((result) => {
+    result.observe(0);
   });
 
-  memoryHeapUsed.addCallback((result) => {
-    const { heapTotal, heapUsed } = process.memoryUsage();
-    result.observe(heapUsed / 1000000);
+  // GPU gauge
+  const gpuGauge = meter.createObservableGauge("gpu_gauge", {});
+
+  gpuGauge.addCallback((result) => {
+    result.observe(0);
+  });
+
+  // VRAM gauge
+  const vramGauge = meter.createObservableGauge("vram_gauge", {});
+
+  vramGauge.addCallback((result) => {
+    result.observe(0);
   });
 
   // Set this MeterProvider to be global to the app being instrumented.
