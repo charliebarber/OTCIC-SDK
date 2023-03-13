@@ -19,5 +19,6 @@ COPY --from=builder ./dashboard/node_modules dashboard/node_modules
 COPY --from=builder ./dashboard/build dashboard/build
 COPY package.json .
 
-EXPOSE 3000
+ENV PORT=80
+EXPOSE 80
 CMD ["node", "dashboard/build"]

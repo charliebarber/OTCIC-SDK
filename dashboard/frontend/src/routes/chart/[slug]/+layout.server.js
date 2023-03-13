@@ -2,10 +2,13 @@ import { apps } from "../../../data";
 import { hyphenateStr } from "../../../utils";
 
 export async function load() {
+    const res = await fetch('http://api:54321/api/apps')
+    const appsRes = await res.json()
+
     return {
-        app: apps.map((app) => ({
-                name: app.name,
-                url: hyphenateStr(app.name)
+        apps: appsRes.applications.map((app) => ({
+            name: app.appName,
+            url: hyphenateStr(app.appName),
         }))
     }
 }
