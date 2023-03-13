@@ -49,12 +49,16 @@ services:
     build:
       context: ./dashboard/frontend
       dockerfile: Dockerfile
+      args:
+        - PUBLIC_URL=${PUBLIC_URL}
     ports:
       - "80:80"
     # Want the examples to be running before starting DB
     depends_on:
       - flask_server
       - api
+    environment:
+      - PUBLIC_URL
 
   # Go backend
   api:

@@ -1,3 +1,5 @@
+import { env } from '$env/dynamic/public';
+
 export function hyphenateStr(str) {
     return str.replace(/ +/g, '-').toLowerCase();
 }
@@ -7,7 +9,7 @@ export function getFormattedDate(value) {
     return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
 }
 
-const url = `http://${import.meta.env.URL || "localhost"}:54321`
+const url = `http://${env.PUBLIC_URL || "localhost"}:54321`
 
 export async function fetchMetrics(appName) {
     const cpuRes = await fetch(`${url}/api/app/${appName}/cpu/5m`)
