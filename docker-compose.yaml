@@ -89,3 +89,15 @@ services:
       - api
     ports:
       - "4949:4949"
+
+  # NodeJS
+  express_server:
+    container_name: express_server
+    build:
+      context: ./js
+      dockerfile: ./examples/express_server/Dockerfile
+    depends_on:
+      - collector
+      - api
+    ports:
+      - "8586:8586"
