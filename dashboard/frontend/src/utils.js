@@ -7,20 +7,23 @@ export function getFormattedDate(value) {
     return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
 }
 
+const url = `http://${import.meta.env.URL || "localhost"}:54321`
+
+>>>>>>> Stashed changes
 export async function fetchMetrics(appName) {
-    const cpuRes = await fetch(`http://localhost:54321/api/app/${appName}/cpu/5m`)
+    const cpuRes = await fetch(`${url}/api/app/${appName}/cpu/5m`)
     const cpuData = await cpuRes.json()
 
-    const ramRes = await fetch(`http://localhost:54321/api/app/${appName}/ram/5m`)
+    const ramRes = await fetch(`${url}/api/app/${appName}/ram/5m`)
     const ramData = await ramRes.json()
 
-    const diskRes = await fetch(`http://localhost:54321/api/app/${appName}/disk/5m`)
+    const diskRes = await fetch(`${url}/api/app/${appName}/disk/5m`)
     const diskData = await diskRes.json()
 
-    const gpuRes = await fetch(`http://localhost:54321/api/app/${appName}/gpu/5m`)
+    const gpuRes = await fetch(`${url}/api/app/${appName}/gpu/5m`)
     const gpuData = await gpuRes.json()
 
-    const vramRes = await fetch(`http://localhost:54321/api/app/${appName}/vram/5m`)
+    const vramRes = await fetch(`${url}/api/app/${appName}/vram/5m`)
     const vramData = await vramRes.json()
 
     return { 
