@@ -40,7 +40,7 @@
         <span><strong>Actual Carbon Intensity: </strong>{data.carbonIntensity.actual} gCO2/kWh</span>
         <br>
         <br>
-        <span><strong>CPU model: </strong></span>
+        <span><strong>CPU model: </strong>{data.app.cpuModel}</span>
         <span><strong>CPU TDP: </strong></span>
     </div>
 </div>
