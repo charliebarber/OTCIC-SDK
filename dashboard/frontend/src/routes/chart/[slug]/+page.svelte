@@ -25,11 +25,23 @@
     }
 </script>
 
-<hgroup>
-    <h2>{data.app.appName}</h2>
-    <h4><strong>Language: </strong>{data.app.language}</h4>
-    <a href="" role="button" on:click={handleReload}>Reload data</a>
-</hgroup>
+<div class="grid">
+    <div>
+        <hgroup>
+            <h2>{data.app.appName}</h2>
+            <h4><strong>Language: </strong>{data.app.language}</h4>
+        </hgroup>
+        <a href="" role="button" on:click={handleReload} class="outline">Reload data</a>
+    </div>
+
+    <div>
+        <span><strong>Forecast Carbon Intensity: </strong>{data.carbonIntensity.forecast} gCO2/kWh</span>
+        <br>
+        <span><strong>Actual Carbon Intensity: </strong>{data.carbonIntensity.actual} gCO2/kWh</span>
+    </div>
+</div>
+
+<br>
 
 <div class=grid>
     <MetricGraph 
