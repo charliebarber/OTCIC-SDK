@@ -4,7 +4,7 @@ const otcic = require("otcic");
 const PORT = parseInt(process.env.PORT || "8586");
 const app = express();
 
-otcic.setup("express_server", "test js cpu");
+otcic.setup("express_server");
 
 app.get("/", (req, res) => {
   res.send("Hello World");

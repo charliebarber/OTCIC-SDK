@@ -62,4 +62,4 @@ def roll_dice():
     return s
 
 
-otcic.setup("flask-server", "example python cpu")
+otcic.setup("flask-server")

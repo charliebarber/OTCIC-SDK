@@ -17,7 +17,7 @@ const os = require("os");
 const url = "http://api:54321/api/apps";
 const INTERVAL = 3;
 
-function setup(serviceName, cpuModel) {
+function setup(serviceName) {
   axios
     .post(url, {
       appName: serviceName,

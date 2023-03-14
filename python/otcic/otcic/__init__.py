@@ -20,6 +20,8 @@ from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from .aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
 
+from cpuinfo import get_cpu_info
+
 import requests
 url = "http://api:54321/api/apps"
 
@@ -37,12 +39,14 @@ def ram_trace(func):
     return wrapper
 
 
-def setup(service_name, cpu_model):
+def setup(service_name):
+    info = get_cpu_info()
+    model = info.get('brand_raw', "Unknown")
     # Send app name and language to API
     appObject = {
         'appName': service_name,
         'language': "python",
-        'cpuModel': cpu_model
+        'cpuModel': model
     }
     requests.post(url, appObject)
 
