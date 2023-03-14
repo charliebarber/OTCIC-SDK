@@ -9,7 +9,7 @@ from opentelemetry.sdk.metrics import (
     MeterProvider
 )
 from opentelemetry.sdk.metrics.export import (
-    ConsoleMetricExporter, 
+    ConsoleMetricExporter,
     PeriodicExportingMetricReader,
     AggregationTemporality
 )
@@ -20,14 +20,16 @@ from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from .aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
 
+from cpuinfo import get_cpu_info
+
 import requests
 url = "http://api:54321/api/apps"
 
 # delete this
-import random
 
 INTERVAL_S = 3
 aggregate = AggregateModel(INTERVAL_S)
+
 
 def ram_trace(func):
     @wraps(func)
@@ -36,11 +38,15 @@ def ram_trace(func):
         return func(*args, **kwargs)
     return wrapper
 
+
 def setup(service_name):
+    info = get_cpu_info()
+    model = info.get('brand_raw', "Unknown")
     # Send app name and language to API
     appObject = {
         'appName': service_name,
-        'language': "python"
+        'language': "python",
+        'cpuModel': model
     }
     requests.post(url, appObject)
 
@@ -73,8 +79,6 @@ def setup(service_name):
 
     meter = get_meter_provider().get_meter("metric-meter")
 
-
-
     def cpu_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
@@ -88,8 +92,6 @@ def setup(service_name):
         callbacks=[cpu_gauge_func]
     )
 
-
-
     def ram_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
@@ -102,8 +104,6 @@ def setup(service_name):
         "ram_gauge",
         callbacks=[ram_gauge_func]
     )
-
-
 
     def disk_gauge_func(options):
         aggregate.measure()
@@ -119,8 +119,6 @@ def setup(service_name):
         callbacks=[disk_gauge_func]
     )
 
-
-
     def gpu_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
@@ -133,8 +131,6 @@ def setup(service_name):
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
     )
-
-
 
     def vram_gauge_func(options):
         aggregate.measure()

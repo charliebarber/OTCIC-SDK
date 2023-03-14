@@ -10,12 +10,18 @@ import (
 type Application struct {
 	AppName  string `json:"appName"`
 	Language string `json:"language"`
+	CpuModel string `json:"cpuModel"`
 	Sci      string `json:"sci"`
 	CpuVal   string `json:"cpuVal"`
 	RamVal   string `json:"ramVal"`
 	DiskVal  string `json:"diskVal"`
 	GpuVal   string `json:"gpuVal"`
 	VramVal  string `json:"vramVal"`
+}
+
+type AppPair struct {
+	Language string `json:"language"`
+	CpuModel string `json:"cpuModel"`
 }
 
 type Applications struct {
@@ -70,4 +76,19 @@ func (value *Value) UnmarshalJSON(data []byte) error {
 	value.Val = fmt.Sprintf("%s", tmp[1])
 
 	return nil
+}
+
+// Carbon intensity models
+
+type CIResponse struct {
+	Data []CIData `json:"data"`
+}
+
+type CIData struct {
+	Intensity CIIntensity `json:"intensity"`
+}
+
+type CIIntensity struct {
+	Forecast int `json:"forecast"`
+	Actual   int `json:"actual"`
 }

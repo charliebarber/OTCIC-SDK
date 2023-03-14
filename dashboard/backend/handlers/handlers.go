@@ -6,6 +6,7 @@ import (
 	"otcic/api/database"
 	"otcic/api/models"
 	"otcic/api/storage"
+	"otcic/api/utils"
 )
 
 // Creates a new app in the local API storage
@@ -16,7 +17,10 @@ func AppCreate(c *fiber.Ctx) error {
 		return c.Status(400).SendString(err.Error())
 	}
 
-	storage.Apps[received.AppName] = received.Language
+	storage.Apps[received.AppName] = models.AppPair{
+		received.Language,
+		received.CpuModel,
+	}
 
 	return c.SendString("Received app " + received.AppName)
 }
@@ -25,7 +29,7 @@ func ListApps(c *fiber.Ctx) error {
 	appsJson := models.Applications{}
 
 	baseUrl := "http://prometheus:9090/api/v1/query?query="
-	for name, language := range storage.Apps {
+	for name, pair := range storage.Apps {
 		if c.Query("metric") == "true" {
 			sci := "n/a"
 			cpu := database.FetchSingleMetric(baseUrl, name, "cpu_gauge")
@@ -36,7 +40,8 @@ func ListApps(c *fiber.Ctx) error {
 
 			appsJson.Applications = append(appsJson.Applications, models.Application{
 				name,
-				language,
+				pair.Language,
+				pair.CpuModel,
 				sci,
 				cpu.Val,
 				ram.Val,
@@ -47,7 +52,8 @@ func ListApps(c *fiber.Ctx) error {
 		} else {
 			appsJson.Applications = append(appsJson.Applications, models.Application{
 				name,
-				language,
+				pair.Language,
+				pair.CpuModel,
 				"",
 				"",
 				"",
@@ -84,4 +90,8 @@ func RetrieveMetrics(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(result)
+}
+
+func RetrieveCI(c *fiber.Ctx) error {
+	return c.JSON(utils.GetCarbonIntensity())
 }

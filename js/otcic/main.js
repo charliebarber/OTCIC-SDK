@@ -22,6 +22,7 @@ function setup(serviceName) {
     .post(url, {
       appName: serviceName,
       language: "JavaScript",
+      cpuModel: os.cpus()[0].model,
     })
     .catch((err) => {
       console.log("Error posting new app to API: ", err);

@@ -9,8 +9,12 @@ export async function load({ params }) {
 
     if (!app) throw error(404); 
 
+    const ciRes = await fetch('http://api:54321/api/ci')
+    const ci = await ciRes.json()
+
     return { 
         app,
         slug: params.slug,
+        carbonIntensity: ci
     };
   }
