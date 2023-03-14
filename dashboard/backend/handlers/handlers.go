@@ -6,6 +6,7 @@ import (
 	"otcic/api/database"
 	"otcic/api/models"
 	"otcic/api/storage"
+	"otcic/api/utils"
 )
 
 // Creates a new app in the local API storage
@@ -84,4 +85,8 @@ func RetrieveMetrics(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(result)
+}
+
+func RetrieveCI(c *fiber.Ctx) error {
+	return c.JSON(utils.GetCarbonIntensity())
 }

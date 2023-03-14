@@ -71,3 +71,18 @@ func (value *Value) UnmarshalJSON(data []byte) error {
 
 	return nil
 }
+
+// Carbon intensity models
+
+type CIResponse struct {
+	Data []CIData `json:"data"`
+}
+
+type CIData struct {
+	Intensity CIIntensity `json:"intensity"`
+}
+
+type CIIntensity struct {
+	Forecast int `json:"forecast"`
+	Actual   int `json:"actual"`
+}

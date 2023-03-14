@@ -25,5 +25,7 @@ func main() {
 
 	api.Get("/app/:appName/:metric/:duration", handlers.RetrieveMetrics)
 
+	api.Get("/ci", handlers.RetrieveCI)
+
 	app.Listen(":54321")
 }
