@@ -1,126 +1,79 @@
 <script>
     export let data;
-    import { Line } from 'svelte-chartjs';
+    import { fetchMetrics } from '../../../utils';
+    import { onMount } from 'svelte';
+    import MetricGraph from '$lib/MetricGraph.svelte';
+  
+    let cpu = {}
+    let ram = {}
+    let disk = {}
+    let gpu = {}
+    let vram = {}
 
-    import {
-    Chart as ChartJS,
-    Title,
-    Tooltip,
-    Legend,
-    LineElement,
-    LinearScale,
-    PointElement,
-    CategoryScale,
-  } from 'chart.js';
+    onMount(async () => {
+        ({cpu, ram, disk, gpu, vram} = await fetchMetrics(data.slug));
+        let interval = setInterval(async () => {
+            ({cpu, ram, disk, gpu, vram} = await fetchMetrics(data.slug));
+        }, 10000);
 
-  ChartJS.register(
-    Title,
-    Tooltip,
-    Legend,
-    LineElement,
-    LinearScale,
-    PointElement,
-    CategoryScale
-  );
+        return () => clearInterval(interval);
+    })
+    
+  
+    async function handleReload(event) {
+        ({cpu, ram, disk, gpu, vram} = await fetchMetrics(data.slug));
+    }
 </script>
 
-<hgroup>
-    <h2>{data.app.appName}</h2>
-    <h4><strong>Language: </strong>{data.app.language}</h4>
-</hgroup>
-
-<div class=grid>
+<div class="grid">
     <div>
-        <span>CPU Usage</span>
-        <Line 
-            data={{
-                labels: data.cpu.labels,
-                datasets: [{
-                    data: data.cpu.data,
-                    label: 'CPU Usage %',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
-            }}
-        />
+        <hgroup>
+            <h2>{data.app.appName}</h2>
+            <h4><strong>Language: </strong>{data.app.language}</h4>
+        </hgroup>
+        <a href="" role="button" on:click={handleReload} class="outline">Reload data</a>
     </div>
 
     <div>
-        <span>RAM Usage</span>
-        <Line 
-            data={{
-                labels: data.ram.labels,
-                datasets: [{
-                    data: data.ram.data,
-                    label: 'RAM Usage bytes',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
-            }}
-        />
+        <span><strong>Forecast Carbon Intensity: </strong>{data.carbonIntensity.forecast} gCO2/kWh</span>
+        <br>
+        <span><strong>Actual Carbon Intensity: </strong>{data.carbonIntensity.actual} gCO2/kWh</span>
+        <br>
+        <br>
+        <span><strong>CPU model: </strong>{data.app.cpuModel}</span>
+        <span><strong>CPU TDP: </strong></span>
     </div>
 </div>
 
 <br>
 
 <div class=grid>
-    <div>
-        <span>Disk I/O</span>
-        <Line 
-            data={{
-                labels: data.disk.labels,
-                datasets: [{
-                    data: data.disk.data,
-                    label: 'Disk I/O bytes',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
-            }}
-        />
-    </div>
+    <MetricGraph 
+        label="CPU Usage %"
+        metric={cpu}
+    />
 
-    <div>
-        <span>GPU Usage</span>
-        <Line 
-            data={{
-                labels: data.gpu.labels,
-                datasets: [{
-                    data: data.gpu.data,
-                    label: 'GPU Usage %',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
-            }}
-        />
-    </div>
+    <MetricGraph
+        label="RAM Usage bytes"
+        metric={ram}
+    />
+</div>
 
-    <div>
-        <span>VRAM Usage</span>
-        <Line 
-            data={{
-                labels: data.vram.labels,
-                datasets: [{
-                    data: data.vram.data,
-                    label: 'VRAM Usage bytes',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-            }]
-            }}
-        />
-    </div>
+<br>
+
+<div class=grid>
+    <MetricGraph
+        label-="Disk I/O bytes"
+        metric={disk}
+    />
+
+    <MetricGraph
+        label="GPU Usage %"
+        metric={gpu}
+    />
+
+    <MetricGraph
+        label="VRAM Usage bytes"
+        metric={vram}
+    />
 </div>

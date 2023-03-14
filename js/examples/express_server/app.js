@@ -1,8 +1,10 @@
 const express = require("express");
-const opentelemetry = require("@opentelemetry/api");
+const otcic = require("otcic");
 
-const PORT = parseInt(process.env.PORT || "8080");
+const PORT = parseInt(process.env.PORT || "8586");
 const app = express();
+
+otcic.setup("express_server");
 
 app.get("/", (req, res) => {
   res.send("Hello World");

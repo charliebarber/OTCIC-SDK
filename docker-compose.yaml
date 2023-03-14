@@ -40,7 +40,6 @@ services:
     volumes:
       - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
 
-
   # ********************
   # Dashboard
   # ********************
@@ -50,12 +49,16 @@ services:
     build:
       context: ./dashboard/frontend
       dockerfile: Dockerfile
+      args:
+        - PUBLIC_URL=${PUBLIC_URL}
     ports:
-      - "3000:3000"
+      - "80:80"
     # Want the examples to be running before starting DB
     depends_on:
       - flask_server
       - api
+    environment:
+      - PUBLIC_URL
 
   # Go backend
   api:
@@ -74,7 +77,7 @@ services:
   #     dockerfile: DevDockerfile
   #   ports:
   #     - "5173:5173"
-  
+
   # ********************
   # Example Apps
   # ********************
@@ -89,4 +92,16 @@ services:
       - collector
       - api
     ports:
-      - "80:80"
+      - "4949:4949"
+
+  # NodeJS
+  express_server:
+    container_name: express_server
+    build:
+      context: ./js
+      dockerfile: ./examples/express_server/Dockerfile
+    depends_on:
+      - collector
+      - api
+    ports:
+      - "8586:8586"
