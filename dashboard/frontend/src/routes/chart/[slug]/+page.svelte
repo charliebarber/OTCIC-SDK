@@ -38,6 +38,10 @@
         <span><strong>Forecast Carbon Intensity: </strong>{data.carbonIntensity.forecast} gCO2/kWh</span>
         <br>
         <span><strong>Actual Carbon Intensity: </strong>{data.carbonIntensity.actual} gCO2/kWh</span>
+        <br>
+        <br>
+        <span><strong>CPU model: </strong></span>
+        <span><strong>CPU TDP: </strong></span>
     </div>
 </div>
 

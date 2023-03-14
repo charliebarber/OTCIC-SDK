@@ -17,11 +17,12 @@ const os = require("os");
 const url = "http://api:54321/api/apps";
 const INTERVAL = 3;
 
-function setup(serviceName) {
+function setup(serviceName, cpuModel) {
   axios
     .post(url, {
       appName: serviceName,
       language: "JavaScript",
+      cpuModel: os.cpus()[0].model,
     })
     .catch((err) => {
       console.log("Error posting new app to API: ", err);

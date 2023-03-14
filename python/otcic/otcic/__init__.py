@@ -9,7 +9,7 @@ from opentelemetry.sdk.metrics import (
     MeterProvider
 )
 from opentelemetry.sdk.metrics.export import (
-    ConsoleMetricExporter, 
+    ConsoleMetricExporter,
     PeriodicExportingMetricReader,
     AggregationTemporality
 )
@@ -24,10 +24,10 @@ import requests
 url = "http://api:54321/api/apps"
 
 # delete this
-import random
 
 INTERVAL_S = 3
 aggregate = AggregateModel(INTERVAL_S)
+
 
 def ram_trace(func):
     @wraps(func)
@@ -36,11 +36,13 @@ def ram_trace(func):
         return func(*args, **kwargs)
     return wrapper
 
-def setup(service_name):
+
+def setup(service_name, cpu_model):
     # Send app name and language to API
     appObject = {
         'appName': service_name,
-        'language': "python"
+        'language': "python",
+        'cpuModel': cpu_model
     }
     requests.post(url, appObject)
 
@@ -73,8 +75,6 @@ def setup(service_name):
 
     meter = get_meter_provider().get_meter("metric-meter")
 
-
-
     def cpu_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
@@ -88,8 +88,6 @@ def setup(service_name):
         callbacks=[cpu_gauge_func]
     )
 
-
-
     def ram_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
@@ -102,8 +100,6 @@ def setup(service_name):
         "ram_gauge",
         callbacks=[ram_gauge_func]
     )
-
-
 
     def disk_gauge_func(options):
         aggregate.measure()
@@ -119,8 +115,6 @@ def setup(service_name):
         callbacks=[disk_gauge_func]
     )
 
-
-
     def gpu_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
@@ -133,8 +127,6 @@ def setup(service_name):
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
     )
-
-
 
     def vram_gauge_func(options):
         aggregate.measure()
