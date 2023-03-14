@@ -10,12 +10,18 @@ import (
 type Application struct {
 	AppName  string `json:"appName"`
 	Language string `json:"language"`
+	CpuModel string `json:"cpuModel"`
 	Sci      string `json:"sci"`
 	CpuVal   string `json:"cpuVal"`
 	RamVal   string `json:"ramVal"`
 	DiskVal  string `json:"diskVal"`
 	GpuVal   string `json:"gpuVal"`
 	VramVal  string `json:"vramVal"`
+}
+
+type AppPair struct {
+	Language string `json:"language"`
+	CpuModel string `json:"cpuModel"`
 }
 
 type Applications struct {

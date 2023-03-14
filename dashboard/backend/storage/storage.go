@@ -1,3 +1,7 @@
 package storage
 
-var Apps = make(map[string]string)
+import (
+	"otcic/api/models"
+)
+
+var Apps = make(map[string]models.AppPair)
