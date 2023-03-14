@@ -1,30 +1,9 @@
 <script>
-      export let data;
-      import { fetchMetrics } from '../../../utils';
-      import { Line } from 'svelte-chartjs';
-      import { onMount } from 'svelte';
+    export let data;
+    import { fetchMetrics } from '../../../utils';
+    import { onMount } from 'svelte';
+    import MetricGraph from '$lib/MetricGraph.svelte';
   
-      import {
-      Chart as ChartJS,
-      Title,
-      Tooltip,
-      Legend,
-      LineElement,
-      LinearScale,
-      PointElement,
-      CategoryScale,
-    } from 'chart.js';
-  
-    ChartJS.register(
-      Title,
-      Tooltip,
-      Legend,
-      LineElement,
-      LinearScale,
-      PointElement,
-      CategoryScale
-    );
-
     let cpu = {}
     let ram = {}
     let disk = {}
@@ -53,117 +32,32 @@
 </hgroup>
 
 <div class=grid>
-    <div>
-        <span>CPU Usage</span>
-        {#if cpu != {}}
-        <Line 
-            data={{
-                labels: cpu.labels,
-                datasets: [{
-                    data: cpu.data,
-                    label: 'CPU Usage %',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-                 }]
-            }}
-        />
-        {:else}
-        <span>Loading data...</span> 
-        {/if}
-    </div>
+    <MetricGraph 
+        label="CPU Usage %"
+        metric={cpu}
+    />
 
-    <div>
-        <span>RAM Usage</span>
-        {#if ram != {}}
-        <Line 
-            data={{
-                labels: ram.labels,
-                datasets: [{
-                    data: ram.data,
-                    label: 'RAM Usage bytes',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-                }]
-            }}
-        />
-        {:else}
-        <span>Loading data...</span>
-        {/if}
-    </div>
+    <MetricGraph
+        label="RAM Usage bytes"
+        metric={ram}
+    />
 </div>
 
 <br>
 
 <div class=grid>
-    <div>
-        <span>Disk I/O</span>
-        {#if disk != {}}
-        <Line 
-            data={{
-                labels: disk.labels,
-                datasets: [{
-                    data: disk.data,
-                    label: 'Disk I/O bytes',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-                }]
-            }}
-        />
-        {:else}
-        <span>Loading data...</span>
-        {/if}
-    </div>
+    <MetricGraph
+        label-="Disk I/O bytes"
+        metric={disk}
+    />
 
-    <div>
-        <span>GPU Usage</span>
-        {#if gpu != {}}
-        <Line 
-            data={{
-                labels: gpu.labels,
-                datasets: [{
-                    data: gpu.data,
-                    label: 'GPU Usage %',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-                }]
-            }}
-        />
-        {:else}
-        <span>Loading data...</span>
-        {/if}
-    </div>
+    <MetricGraph
+        label="GPU Usage %"
+        metric={gpu}
+    />
 
-    <div>
-        <span>VRAM Usage</span>
-        {#if vram != {}}
-        <Line 
-            data={{
-                labels: vram.labels,
-                datasets: [{
-                    data: vram.data,
-                    label: 'VRAM Usage bytes',
-                    fill: true,
-                    backgroundColor: 'rgba(225, 204,230, .3)',
-                    borderColor: 'rgb(205, 130, 158)',
-                    pointBorderColor: 'rgb(205, 130,1 58)',
-                    pointBackgroundColor: 'rgb(255, 255, 255)',
-                }]
-            }}
-        />
-        {:else}
-        <span>Loading data...</span>
-        {/if}
-    </div>
+    <MetricGraph
+        label="VRAM Usage bytes"
+        metric={vram}
+    />
 </div>
