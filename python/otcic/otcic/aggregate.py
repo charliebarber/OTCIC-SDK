@@ -6,7 +6,7 @@ from .ddqueue import DataDoubleQueue
 from .cpu_tracer import CPUTracer
 from .ram_tracer import RAMTracer
 from .disk_tracer import DiskTracer
-from .gpu_tracer import GPUTracer
+from .gpu_tracer import GPUTracer, VRAMTracer
 
 class AggregateModel:
     def __init__(self, interval: int):
@@ -17,10 +17,17 @@ class AggregateModel:
             "cpu": CPUTracer(self.process),
             "ram": RAMTracer(self.process),
             "disk": DiskTracer(self.process),
-            "gpu": GPUTracer(self.process)
+            "gpu": GPUTracer(self.process),
+            "vram": VRAMTracer(self.process)
         }
+        self.lock = False
 
     def measure(self):
+        if self.lock:
+            return
+
+        self.lock = True
+
         tracer_values = self.tracers.values()
         for tracer in tracer_values:
             tracer.measure()
@@ -29,6 +36,9 @@ class AggregateModel:
             start = self.next_interval - self.interval
             for tracer in tracer_values:
                 tracer.collapse(start, self.interval)
+            self.next_interval = self.next_interval + self.interval
+
+        self.lock = False
 
     def get_metrics(self) -> dict[str, list[tuple[int, int, Any]]]:
         return {key: values.aggregate for key, values in self.tracers.items()}

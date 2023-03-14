@@ -20,15 +20,14 @@ from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from .aggregate import AggregateModel
 # this is where all classes are going to be used and this specific module is imported
 
+import requests
+url = "http://api:54321/api/apps"
+
+# delete this
+import random
+
 INTERVAL_S = 3
 aggregate = AggregateModel(INTERVAL_S)
-
-def all_trace(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        aggregate.measure()
-        return func(*args, **kwargs)
-    return wrapper
 
 def ram_trace(func):
     @wraps(func)
@@ -38,6 +37,13 @@ def ram_trace(func):
     return wrapper
 
 def setup(service_name):
+    # Send app name and language to API
+    appObject = {
+        'appName': service_name,
+        'language': "python"
+    }
+    requests.post(url, appObject)
+
     # OpenTelemetry exporter setup
     resource = Resource(attributes={
         SERVICE_NAME: service_name
@@ -126,4 +132,19 @@ def setup(service_name):
     meter.create_observable_gauge(
         "gpu_gauge",
         callbacks=[gpu_gauge_func]
+    )
+
+
+
+    def vram_gauge_func(options):
+        aggregate.measure()
+        metrics = aggregate.get_metrics()
+        aggregate_data = metrics["vram"]
+        val = aggregate_data[len(aggregate_data)-1][2]
+
+        yield Observation(val)
+
+    meter.create_observable_gauge(
+        "vram_gauge",
+        callbacks=[vram_gauge_func]
     )
