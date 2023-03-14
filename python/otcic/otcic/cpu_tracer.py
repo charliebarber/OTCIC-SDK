@@ -1,24 +1,16 @@
 import time
-from psutil import Process
+import psutil
+Process = psutil.Process
+core_mult = (1 / psutil.cpu_count()) * 0.01
 
 from .ddqueue import DataDoubleQueue
 
 class CPUTracer(DataDoubleQueue):
     def __init__(self, process: Process):
         super().__init__(process)
-        self.last_time = time.monotonic()
-        self.last_proc = self.process.cpu_times().user
+        self.process.cpu_percent()
 
     def collapse(self, start: int, interval: int):
-        new_time = time.monotonic()
-        new_proc = self.process.cpu_times().user
-        time_diff = (new_time - self.last_time)
-        print("Time Diff:", time_diff)
-
-        cpu_usage = 1 if time_diff == 0 else (new_proc - self.last_proc) / time_diff
-
+        cpu_usage = self.process.cpu_percent() * core_mult
         self.aggregate.append((start, interval, cpu_usage))
         print("CPU Collapse: {}".format(cpu_usage))
-
-        self.last_time = new_time
-        self.last_proc = new_proc
