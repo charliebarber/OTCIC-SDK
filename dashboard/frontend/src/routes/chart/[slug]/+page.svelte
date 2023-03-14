@@ -3,6 +3,8 @@
     import { fetchMetrics } from '../../../utils';
     import { onMount } from 'svelte';
     import MetricGraph from '$lib/MetricGraph.svelte';
+
+    console.log(data)
   
     let cpu = {}
     let ram = {}
@@ -63,7 +65,7 @@
 
 <div class=grid>
     <MetricGraph
-        label-="Disk I/O bytes"
+        label="Disk I/O bytes"
         metric={disk}
     />
 
