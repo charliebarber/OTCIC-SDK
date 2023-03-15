@@ -2,32 +2,33 @@ import random as r
 from flask import Flask, request
 import sys
 import otcic
+import multiprocessing
+
+ROW_LENGTH = 2**16
+CHUNK_SIZE = 2**4
+
+Row = list[int]
+Table = list[Row]
 
 app = Flask(__name__)
 
-table: list[list[int]] = []
+table: Table = []
 filename = "table.txt"
 with open(filename, "w") as file:
     file.write("Table\n")
 
 
-def expensive_function():
-    return (r.random() ** r.randint(1, 3)) / (r.random() + 1)
+def expensive_function(_ = None) -> float:
+    return (r.random() * r.randint(1, 3)) / (r.random() + 1)
 
-
-def table_sizeof(table: list[list[int]]):
+def table_sizeof(table: Table) -> int:
     return sys.getsizeof(table) + sum(map(sys.getsizeof, table))
 
 
 @otcic.ram_trace
-def make_row():
-    row = []
-    for i in range(2**16):
-        v = expensive_function()
-        if v > 0:
-            v = v ** 0.5
-        row.append(v)
-    return row
+def make_row() -> Row:
+    with multiprocessing.Pool() as pool:
+        return pool.map(expensive_function, range(ROW_LENGTH), CHUNK_SIZE)
 
 
 @otcic.ram_trace
@@ -36,7 +37,7 @@ def do_roll():
     if len(table) < 16:
         row = make_row()
         with open(filename, "a") as file:
-            file.write("{}\n".format(row[0]))
+            file.write(", ".join(["{}\n".format(item) for item in row]))
         table.append(row)
         msg = "Table ADD: {}".format(row[0])
 
