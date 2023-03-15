@@ -1,4 +1,5 @@
 from psutil import Process
+import os
 
 from .ddqueue import DataDoubleQueue
 
@@ -9,6 +10,7 @@ class RAMTracer(DataDoubleQueue):
     def measure(self):
         mem_bytes = self.process.memory_info().rss
         self.log(mem_bytes)
+        print("Process (current, parent):", os.getpid(), os.getppid())
         print("RAM Measure: {}".format(mem_bytes))
 
     def collapse(self, start: int, interval: int):
@@ -35,4 +37,5 @@ class RAMTracer(DataDoubleQueue):
                 self.real_time.pop(0)
         
         self.aggregate.append((start, interval, avg))
+        print("Process (current, parent):", os.getpid(), os.getppid())
         print("RAM Collapse: {}".format(avg))
