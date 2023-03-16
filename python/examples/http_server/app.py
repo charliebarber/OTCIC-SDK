@@ -18,7 +18,7 @@ with open(filename, "w") as file:
     file.write("Table\n")
 
 
-def expensive_function(_ = None) -> float:
+def expensive_function(_=None) -> float:
     return (r.random() * r.randint(1, 3)) / (r.random() + 1)
 
 def table_sizeof(table: Table) -> int:
@@ -27,6 +27,7 @@ def table_sizeof(table: Table) -> int:
 
 @otcic.ram_trace
 def make_row() -> Row:
+    #return list(map(expensive_function, range(ROW_LENGTH)))
     with multiprocessing.Pool() as pool:
         return pool.map(expensive_function, range(ROW_LENGTH), CHUNK_SIZE)
 
@@ -55,7 +56,7 @@ def do_roll():
     return msg
 
 
-@app.route("/rolldice")
+@app.route("/")
 @otcic.ram_trace
 def roll_dice():
     s = do_roll()
