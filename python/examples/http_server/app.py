@@ -3,7 +3,7 @@ from flask import Flask, request
 from functools import wraps
 import sys
 import otcic
-import multiprocessing
+#import multiprocessing
 
 TABLE_MAX = 16
 ROW_LENGTH = 2**16
