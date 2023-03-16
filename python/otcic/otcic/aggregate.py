@@ -23,6 +23,7 @@ class AggregateModel:
             "vram": VRAMTracer(self.process)
         }
         self.lock = False
+        print("Aggr creation, pid:", self.process.pid)
 
     def measure(self):
         if self.lock:
@@ -30,7 +31,7 @@ class AggregateModel:
 
         self.lock = True
 
-        print("Aggregate Process (current, parent):", os.getpid(), os.getppid())
+        print("Aggr Process (curr,par): {:>4} | {:>4}".format(os.getpid(), os.getppid()))
 
         tracer_values = self.tracers.values()
         for tracer in tracer_values:
