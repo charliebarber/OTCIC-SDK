@@ -68,7 +68,7 @@ def add_table() -> str:
 @table_template
 def del_table() -> str:
     if len(table) > 0:
-        d = r.randint(0, TABLE_MAX - 1)
+        d = r.randint(0, len(table) - 1)
         table.pop(d)
         return "Table DEL: {}".format(d)
     return "Table DEL: Empty"
