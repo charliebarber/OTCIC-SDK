@@ -4,6 +4,7 @@ import gpustat
 from gpustat import GPUStat
 
 from .ddqueue import DataDoubleQueue
+from .utils import collapse_avg
 
 def get_gpu_process(pid: int):
     gpu_processes = []
@@ -57,27 +58,6 @@ class VRAMTracer(DataDoubleQueue):
         self.log(memory)
 
     def collapse(self, start: int, interval: int):
-        end = start + interval
-        avg = 0
-        copy = self.real_time.copy()
-        list_len = len(copy)
-        for i in range(list_len):
-            log = copy[i]
-            if log[0] > end:
-                break
-            
-            if i == list_len - 1 or copy[i + 1][0] > end:
-                leng = end - log[0]
-                avg += log[1] * leng
-
-                self.real_time.pop(0)
-                self.real_time.insert(0, (end, log[1]))
-
-            else:
-                leng = copy[i + 1][0] - log[0]
-                avg += log[1] * leng
-
-                self.real_time.pop(0)
-        
+        avg, self.real_time = collapse_avg(self.real_time, start, interval)
         self.aggregate.append((start, interval, avg))
         print("VRAM Collapse: {}".format(avg))
