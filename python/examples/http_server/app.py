@@ -37,9 +37,9 @@ def print_table():
 
 @otcic.ram_trace
 def make_row() -> Row:
-    #return list(map(expensive_function, range(ROW_LENGTH)))
-    with multiprocessing.Pool() as pool:
-        return pool.map(expensive_function, range(ROW_LENGTH), CHUNK_SIZE)
+    return list(map(expensive_function, range(ROW_LENGTH)))
+    # with multiprocessing.Pool() as pool:
+    #     return pool.map(expensive_function, range(ROW_LENGTH), CHUNK_SIZE)
 
 
 def table_template(func):
