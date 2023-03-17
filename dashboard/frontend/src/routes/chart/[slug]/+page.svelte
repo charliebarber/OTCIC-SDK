@@ -44,7 +44,7 @@
         <br>
         <span><strong>CPU model: </strong>{data.app.cpuModel}</span>
         <br>
-        <span><strong>CPU TDP: </strong></span>
+        <span><strong>CPU TDP: </strong>{data.tdp} W</span>
     </div>
 </div>
 
