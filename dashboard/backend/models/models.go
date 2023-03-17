@@ -92,3 +92,12 @@ type CIIntensity struct {
 	Forecast int `json:"forecast"`
 	Actual   int `json:"actual"`
 }
+
+// Cpu TDP data from JSON
+
+type CpuData struct {
+	Model      string  `json:"model"`
+	TDP        int     `json:"tdp"`
+	NCores     int     `json:"nCores"`
+	TdpPerCore float32 `json:"tdpPerCore"`
+}

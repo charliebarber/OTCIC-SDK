@@ -43,6 +43,7 @@
         <br>
         <br>
         <span><strong>CPU model: </strong>{data.app.cpuModel}</span>
+        <br>
         <span><strong>CPU TDP: </strong></span>
     </div>
 </div>

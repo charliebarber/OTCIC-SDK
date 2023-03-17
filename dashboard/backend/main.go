@@ -27,5 +27,7 @@ func main() {
 
 	api.Get("/ci", handlers.RetrieveCI)
 
+	api.Get("/tdp", handlers.RetrieveTDP)
+
 	app.Listen(":54321")
 }

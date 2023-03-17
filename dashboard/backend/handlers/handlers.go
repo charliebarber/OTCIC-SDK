@@ -95,3 +95,13 @@ func RetrieveMetrics(c *fiber.Ctx) error {
 func RetrieveCI(c *fiber.Ctx) error {
 	return c.JSON(utils.GetCarbonIntensity())
 }
+
+func RetrieveTDP(c *fiber.Ctx) error {
+	cpuTdp := struct {
+		Tdp int `json:"tdp"`
+	}{
+		Tdp: utils.GetCpuTdp(c.Query("cpuModel")),
+	}
+
+	return c.JSON(cpuTdp)
+}
