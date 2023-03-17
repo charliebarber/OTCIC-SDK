@@ -544,5 +544,11 @@
     "nCores": 6,
     "tdpPerCore": 15.8,
     "source": "https://ark.intel.com/content/www/us/en/ark/products/47921/intel-xeon-processor-x5660-12m-cache-2-80-ghz-6-40-gt-s-intel-qpi.html"
+  },
+  {
+    "model": "Xeon E5-2620 v2",
+    "tdp": 80,
+    "nCores": 6,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/75789/intel-xeon-processor-e52620-v2-15m-cache-2-10-ghz.html"
   }
 ]
