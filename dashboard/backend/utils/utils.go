@@ -1,13 +1,18 @@
 package utils
 
 import (
-	"io/ioutil"
+	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/goccy/go-json"
+	"encoding/json"
 	"otcic/api/models"
+
+	"github.com/lithammer/fuzzysearch/fuzzy"
+
+	"embed"
 )
 
 func GetCarbonIntensity() models.CIIntensity {
@@ -36,7 +41,7 @@ func GetCarbonIntensity() models.CIIntensity {
 		defer res.Body.Close()
 	}
 
-	body, readErr := ioutil.ReadAll(res.Body)
+	body, readErr := io.ReadAll(res.Body)
 	if readErr != nil {
 		log.Print(readErr)
 	}
@@ -47,4 +52,44 @@ func GetCarbonIntensity() models.CIIntensity {
 	}
 
 	return ciReponse.Data[0].Intensity
+}
+
+//go:embed tdp.json
+var f embed.FS
+
+func readCpuTdps() []models.CpuData {
+
+	content, err := f.ReadFile("tdp.json")
+	if err != nil {
+		log.Fatal("Error when opening file: ", err)
+	}
+
+	cpuDataArr := []models.CpuData{}
+
+	err = json.Unmarshal(content, &cpuDataArr)
+	if err != nil {
+		log.Fatal("Error unmarshalling: ", err)
+	}
+
+	return cpuDataArr
+}
+
+func GetCpuTdp(cpuModel string) int {
+	cpuTdps := readCpuTdps()
+
+	closestDistance := 64
+	var closestMatch models.CpuData
+	for _, cpu := range cpuTdps {
+		fmt.Println("CPU: ", cpu.Model, "TDP: ", cpu.TDP)
+		rank := fuzzy.LevenshteinDistance(cpu.Model, cpuModel)
+		if rank >= 0 && rank < closestDistance {
+			closestMatch = cpu
+			closestDistance = rank
+		}
+	}
+
+	fmt.Println("Closest match to ", cpuModel, "was ", closestMatch.Model, "with TDP", closestMatch.TDP)
+	fmt.Println("Distance was", closestDistance)
+
+	return closestMatch.TDP
 }

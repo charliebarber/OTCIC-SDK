@@ -9,12 +9,12 @@ export async function load({ params }) {
 
     if (!app) throw error(404); 
 
-    const ciRes = await fetch('http://api:54321/api/ci')
-    const ci = await ciRes.json()
+    const tdpRes = await fetch(`http://api:54321/api/tdp?cpuModel=${app.cpuModel}`)
+    const tdp = await tdpRes.json()
 
     return { 
         app,
+        tdp: tdp.tdp,
         slug: params.slug,
-        carbonIntensity: ci
     };
   }

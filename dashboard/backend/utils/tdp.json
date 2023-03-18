@@ -1,0 +1,554 @@
+[
+  {
+    "model": "A8-7680",
+    "tdp": 45,
+    "nCores": 4,
+    "tdpPerCore": 11.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "A9-9425 SoC",
+    "tdp": 15,
+    "nCores": 2,
+    "tdpPerCore": 7.5,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "AMD 7552",
+    "tdp": 200,
+    "nCores": 48,
+    "tdpPerCore": 4.2,
+    "source": "https://www.amd.com/system/files/documents/AMD-EPYC-7002-Series-Datasheet.pdf"
+  },
+  {
+    "model": "AMD EPYC 7251",
+    "tdp": 120,
+    "nCores": 8,
+    "tdpPerCore": 15,
+    "source": "https://www.amd.com/en/products/cpu/amd-epyc-7251"
+  },
+  {
+    "model": "Athlon 3000G",
+    "tdp": 35,
+    "nCores": 2,
+    "tdpPerCore": 17.5,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core 2 Quad Q6600",
+    "tdp": 95,
+    "nCores": 4,
+    "tdpPerCore": 23.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i3-10100",
+    "tdp": 65,
+    "nCores": 4,
+    "tdpPerCore": 16.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i3-10300",
+    "tdp": 62,
+    "nCores": 4,
+    "tdpPerCore": 15.5,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i3-10320",
+    "tdp": 91,
+    "nCores": 4,
+    "tdpPerCore": 22.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i3-10350K",
+    "tdp": 91,
+    "nCores": 4,
+    "tdpPerCore": 22.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i3-9100",
+    "tdp": 65,
+    "nCores": 4,
+    "tdpPerCore": 16.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i3-9100F",
+    "tdp": 65,
+    "nCores": 4,
+    "tdpPerCore": 16.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-10400",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-10400F",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-10500",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-10600",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-10600K",
+    "tdp": 95,
+    "nCores": 6,
+    "tdpPerCore": 15.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-3570K",
+    "tdp": 77,
+    "nCores": 4,
+    "tdpPerCore": 19.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-4460",
+    "tdp": 84,
+    "nCores": 4,
+    "tdpPerCore": 21,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/80817/intel-core-i5-4460-processor-6m-cache-up-to-3-40-ghz.html"
+  },
+  {
+    "model": "Core i5-9400",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-9400F",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i5-9600KF",
+    "tdp": 95,
+    "nCores": 6,
+    "tdpPerCore": 15.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i7-10700",
+    "tdp": 65,
+    "nCores": 8,
+    "tdpPerCore": 8.1,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i7-10700K",
+    "tdp": 125,
+    "nCores": 8,
+    "tdpPerCore": 15.6,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i7-4930K",
+    "tdp": 130,
+    "nCores": 6,
+    "tdpPerCore": 21.7,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i7-6700K",
+    "tdp": 95,
+    "nCores": 4,
+    "tdpPerCore": 23.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i7-8700K",
+    "tdp": 95,
+    "nCores": 6,
+    "tdpPerCore": 15.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i7-9700F",
+    "tdp": 65,
+    "nCores": 8,
+    "tdpPerCore": 8.1,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i7-9700K",
+    "tdp": 95,
+    "nCores": 8,
+    "tdpPerCore": 11.9,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i9-10900K",
+    "tdp": 125,
+    "nCores": 10,
+    "tdpPerCore": 12.5,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i9-10900KF",
+    "tdp": 105,
+    "nCores": 10,
+    "tdpPerCore": 10.5,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i9-10900XE",
+    "tdp": 165,
+    "nCores": 10,
+    "tdpPerCore": 16.5,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i9-10920XE",
+    "tdp": 165,
+    "nCores": 12,
+    "tdpPerCore": 13.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Core i9-9900K",
+    "tdp": 95,
+    "nCores": 8,
+    "tdpPerCore": 11.9,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "FX-6300",
+    "tdp": 95,
+    "nCores": 6,
+    "tdpPerCore": 15.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "FX-8350",
+    "tdp": 125,
+    "nCores": 8,
+    "tdpPerCore": 15.6,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 3 2200G",
+    "tdp": 65,
+    "nCores": 4,
+    "tdpPerCore": 16.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 3 3200G",
+    "tdp": 65,
+    "nCores": 4,
+    "tdpPerCore": 16.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 3 3200U",
+    "tdp": 15,
+    "nCores": 2,
+    "tdpPerCore": 7.5,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 5 1600",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 5 2600",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 5 3400G",
+    "tdp": 65,
+    "nCores": 4,
+    "tdpPerCore": 16.3,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 5 3500U",
+    "tdp": 15,
+    "nCores": 4,
+    "tdpPerCore": 3.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 5 3600",
+    "tdp": 65,
+    "nCores": 6,
+    "tdpPerCore": 10.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 5 3600X",
+    "tdp": 95,
+    "nCores": 6,
+    "tdpPerCore": 15.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 7 2700X",
+    "tdp": 105,
+    "nCores": 8,
+    "tdpPerCore": 13.1,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 7 3700X",
+    "tdp": 65,
+    "nCores": 8,
+    "tdpPerCore": 8.1,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 7 3800X",
+    "tdp": 105,
+    "nCores": 8,
+    "tdpPerCore": 13.1,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 9 3900X",
+    "tdp": 125,
+    "nCores": 12,
+    "tdpPerCore": 10.4,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen 9 3950X",
+    "tdp": 105,
+    "nCores": 16,
+    "tdpPerCore": 6.6,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen Threadripper 2990WX",
+    "tdp": 250,
+    "nCores": 32,
+    "tdpPerCore": 7.8,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Ryzen Threadripper 3990X",
+    "tdp": 280,
+    "nCores": 64,
+    "tdpPerCore": 4.4,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Xeon E5-2660 v3",
+    "tdp": 105,
+    "nCores": 10,
+    "tdpPerCore": 10.5,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/81706/intel-xeon-processor-e5-2660-v3-25m-cache-2-60-ghz.html"
+  },
+  {
+    "model": "Xeon E5-2665",
+    "tdp": 115,
+    "nCores": 8,
+    "tdpPerCore": 14.4,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/64597/intel-xeon-processor-e5-2665-20m-cache-2-40-ghz-8-00-gt-s-intel-qpi.html"
+  },
+  {
+    "model": "Xeon E5-2670",
+    "tdp": 115,
+    "nCores": 8,
+    "tdpPerCore": 14.4,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/64595/intel-xeon-processor-e5-2670-20m-cache-2-60-ghz-8-00-gt-s-intel-qpi.html"
+  },
+  {
+    "model": "Xeon E5-2670 v2",
+    "tdp": 115,
+    "nCores": 10,
+    "tdpPerCore": 11.5,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/75275/intel-xeon-processor-e5-2670-v2-25m-cache-2-50-ghz.html"
+  },
+  {
+    "model": "Xeon E5-2680 v3",
+    "tdp": 120,
+    "nCores": 12,
+    "tdpPerCore": 10,
+    "source": "https://www.intel.co.uk/content/www/uk/en/products/processors/xeon/e5-processors/e5-2680-v3.html"
+  },
+  {
+    "model": "Xeon E5-2683 v4",
+    "tdp": 120,
+    "nCores": 16,
+    "tdpPerCore": 7.5,
+    "source": "https://www.intel.co.uk/content/www/uk/en/products/processors/xeon/e5-processors/e5-2683-v4.html"
+  },
+  {
+    "model": "Xeon E5-2690 v2",
+    "tdp": 130,
+    "nCores": 10,
+    "tdpPerCore": 13,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/75279/intel-xeon-processor-e5-2690-v2-25m-cache-3-00-ghz.html"
+  },
+  {
+    "model": "Xeon E5-2690 v3",
+    "tdp": 135,
+    "nCores": 12,
+    "tdpPerCore": 11.3,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/81713/intel-xeon-processor-e5-2690-v3-30m-cache-2-60-ghz.html"
+  },
+  {
+    "model": "Xeon E5-2695 v4",
+    "tdp": 120,
+    "nCores": 18,
+    "tdpPerCore": 6.7,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/91316/intel-xeon-processor-e5-2695-v4-45m-cache-2-10-ghz.html"
+  },
+  {
+    "model": "Xeon E5-2697 v4",
+    "tdp": 145,
+    "nCores": 18,
+    "tdpPerCore": 8.1,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/91755/intel-xeon-processor-e5-2697-v4-45m-cache-2-30-ghz.html"
+  },
+  {
+    "model": "Xeon E5-2699 v3",
+    "tdp": 145,
+    "nCores": 18,
+    "tdpPerCore": 8.1,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/81061/intel-xeon-processor-e5-2699-v3-45m-cache-2-30-ghz.html"
+  },
+  {
+    "model": "Xeon E5-2699 v4",
+    "tdp": 145,
+    "nCores": 22,
+    "tdpPerCore": 6.6,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/91317/intel-xeon-processor-e5-2699-v4-55m-cache-2-20-ghz.html"
+  },
+  {
+    "model": "Xeon E5-4610 v4",
+    "tdp": 105,
+    "nCores": 10,
+    "tdpPerCore": 10.5,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/93812/intel-xeon-processor-e5-4610-v4-25m-cache-1-80-ghz.html"
+  },
+  {
+    "model": "Xeon E5-4620",
+    "tdp": 95,
+    "nCores": 8,
+    "tdpPerCore": 11.9,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/64607/intel-xeon-processor-e5-4620-16m-cache-2-20-ghz-7-20-gt-s-intel-qpi.html"
+  },
+  {
+    "model": "Xeon E5-4650L",
+    "tdp": 115,
+    "nCores": 8,
+    "tdpPerCore": 14.4,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/64606/intel-xeon-processor-e5-4650l-20m-cache-2-60-ghz-8-00-gt-s-intel-qpi.html"
+  },
+  {
+    "model": "Xeon E7-8867 v3",
+    "tdp": 165,
+    "nCores": 16,
+    "tdpPerCore": 10.3,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/84681/intel-xeon-processor-e7-8867-v3-45m-cache-2-50-ghz.html"
+  },
+  {
+    "model": "Xeon E7-8880 v4",
+    "tdp": 150,
+    "nCores": 22,
+    "tdpPerCore": 6.8,
+    "source": "https://www.intel.co.uk/content/www/uk/en/products/processors/xeon/e7-processors/e7-8880-v4.html"
+  },
+  {
+    "model": "Xeon Gold 6142",
+    "tdp": 150,
+    "nCores": 16,
+    "tdpPerCore": 9.4,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/120487/intel-xeon-gold-6142-processor-22m-cache-2-60-ghz.html"
+  },
+  {
+    "model": "Xeon Gold 6148",
+    "tdp": 150,
+    "nCores": 20,
+    "tdpPerCore": 7.5,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/120489/intel-xeon-gold-6148-processor-27-5m-cache-2-40-ghz.html"
+  },
+  {
+    "model": "Xeon Gold 6248",
+    "tdp": 150,
+    "nCores": 20,
+    "tdpPerCore": 7.5,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html"
+  },
+  {
+    "model": "Xeon Gold 6252",
+    "tdp": 150,
+    "nCores": 24,
+    "tdpPerCore": 6.3,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/192447/intel-xeon-gold-6252-processor-35-75m-cache-2-10-ghz.html"
+  },
+  {
+    "model": "Xeon L5640",
+    "tdp": 60,
+    "nCores": 6,
+    "tdpPerCore": 10,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/47926/intel-xeon-processor-l5640-12m-cache-2-26-ghz-5-86-gt-s-intel-qpi.html"
+  },
+  {
+    "model": "Xeon Phi 5110P",
+    "tdp": 225,
+    "nCores": 60,
+    "tdpPerCore": 3.8,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/71992/intel-xeon-phi-coprocessor-5110p-8gb-1-053-ghz-60-core.html"
+  },
+  {
+    "model": "Xeon Platinum 9282",
+    "tdp": 400,
+    "nCores": 56,
+    "tdpPerCore": 7.1,
+    "source": "https://www.techpowerup.com/cpu-specs/"
+  },
+  {
+    "model": "Xeon X3430",
+    "tdp": 95,
+    "nCores": 4,
+    "tdpPerCore": 23.8,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/42927/intel-xeon-processor-x3430-8m-cache-2-40-ghz.html"
+  },
+  {
+    "model": "Xeon X5660",
+    "tdp": 95,
+    "nCores": 6,
+    "tdpPerCore": 15.8,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/47921/intel-xeon-processor-x5660-12m-cache-2-80-ghz-6-40-gt-s-intel-qpi.html"
+  },
+  {
+    "model": "Xeon E5-2620 v2",
+    "tdp": 80,
+    "nCores": 6,
+    "source": "https://ark.intel.com/content/www/us/en/ark/products/75789/intel-xeon-processor-e52620-v2-15m-cache-2-10-ghz.html"
+  }
+]
