@@ -23,6 +23,7 @@ from .aggregate import AggregateModel
 from cpuinfo import get_cpu_info
 
 import psutil
+import os
 
 import requests
 url = "http://api:54321/api/apps"

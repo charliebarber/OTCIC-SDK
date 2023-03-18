@@ -69,12 +69,12 @@ function setup(serviceName) {
   const loadAvgGauge = meter.createObservableGauge("loadavg_gauge", {
     description: "Load Average 1m",
     unit: "load",
-  })
+  });
 
   loadAvgGauge.addCallback((result) => {
-    const [1mLoadAvg, 5mLoadAvg, 15mLoadAvg] = os.loadavg()
-    result.observe(1mLoadAvg)
-  })
+    const [LoadAvg1m, LoadAvg5m, LoadAvg15m] = os.loadavg();
+    result.observe(LoadAvg1m);
+  });
 
   // Gauge to monitor memory use as a %
   const memoryUsageGauge = meter.createObservableGauge("ram_gauge", {
