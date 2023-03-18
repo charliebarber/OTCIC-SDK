@@ -31,7 +31,7 @@ class AggregateModel:
 
         self.lock = True
 
-        print("Aggr Process (curr,par): {:>4} | {:>4}".format(os.getpid(), os.getppid()))
+        #print("Aggr Process (curr,par): {:>4} | {:>4}".format(os.getpid(), os.getppid()))
 
         tracer_values = self.tracers.values()
         for tracer in tracer_values:
