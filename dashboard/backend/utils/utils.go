@@ -82,16 +82,12 @@ func GetCpuTdp(cpuModel string) int {
 	closestDistance := 64
 	var closestMatch models.CpuData
 	for _, cpu := range cpuTdps {
-		fmt.Println("CPU: ", cpu.Model, "TDP: ", cpu.TDP)
 		rank := fuzzy.LevenshteinDistance(cpu.Model, cpuModel)
 		if rank >= 0 && rank < closestDistance {
 			closestMatch = cpu
 			closestDistance = rank
 		}
 	}
-
-	fmt.Println("Closest match to ", cpuModel, "was ", closestMatch.Model, "with TDP", closestMatch.TDP)
-	fmt.Println("Distance was", closestDistance)
 
 	return closestMatch.TDP
 }

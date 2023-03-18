@@ -11,11 +11,12 @@
     let disk = {}
     let gpu = {}
     let vram = {}
+    let loadAvg = 0.0
 
     onMount(async () => {
-        ({cpu, ram, disk, gpu, vram} = await fetchMetrics(data.slug));
+        ({cpu, ram, disk, gpu, vram, loadAvg} = await fetchMetrics(data.slug));
         let interval = setInterval(async () => {
-            ({cpu, ram, disk, gpu, vram} = await fetchMetrics(data.slug));
+            ({cpu, ram, disk, gpu, vram, loadAvg} = await fetchMetrics(data.slug));
         }, 10000);
 
         return () => clearInterval(interval);
@@ -45,6 +46,8 @@
         <span><strong>CPU model: </strong>{data.app.cpuModel}</span>
         <br>
         <span><strong>CPU TDP: </strong>{data.tdp} W</span>
+        <br>
+        <span><strong>CPU Load Avg: </strong>{loadAvg}</span>
     </div>
 </div>
 
