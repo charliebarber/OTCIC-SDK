@@ -95,6 +95,15 @@ def setup(service_name):
         callbacks=[cpu_gauge_func]
     )
 
+    def loadavg_gauge_func(options):
+        load1, load5, load15 = os.getloadavg()
+        yield Observation(load1)
+
+    meter.create_observable_gauge(
+        "loadavg_gauge",
+        callbacks=[loadavg_gauge_func]
+    )
+
     def ram_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()

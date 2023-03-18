@@ -65,6 +65,17 @@ function setup(serviceName) {
     result.observe(usage.user);
   });
 
+  // CPU Load avg - unix specific
+  const loadAvgGauge = meter.createObservableGauge("loadavg_gauge", {
+    description: "Load Average 1m",
+    unit: "load",
+  })
+
+  loadAvgGauge.addCallback((result) => {
+    const [1mLoadAvg, 5mLoadAvg, 15mLoadAvg] = os.loadavg()
+    result.observe(1mLoadAvg)
+  })
+
   // Gauge to monitor memory use as a %
   const memoryUsageGauge = meter.createObservableGauge("ram_gauge", {
     description: "Memory usage",
