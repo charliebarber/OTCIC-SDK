@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"fmt"
 	"io"
 	"log"
+	"math"
 	"net/http"
 	"strconv"
 	"time"
@@ -11,6 +11,7 @@ import (
 	"encoding/json"
 	"otcic/api/database"
 	"otcic/api/models"
+	"otcic/api/storage"
 
 	"github.com/lithammer/fuzzysearch/fuzzy"
 
@@ -100,4 +101,16 @@ func GetLoadAvg(app string) float64 {
 		log.Fatal("Error converting load avg", err)
 	}
 	return val
+}
+
+func CalculateSCI(appName string) int {
+	// CPU: n cores * TDP * log(loadCPU * 100)/log(200)
+	loadAvg := GetLoadAvg(appName)
+	appInfo := storage.Apps[appName]
+	tdp := GetCpuTdp(appInfo.CpuModel)
+	cores := appInfo.Cores
+
+	cpuScore := (float64(cores) * float64(tdp) * math.Log10(loadAvg*100)) / math.Log10(200)
+
+	return int(math.Round(cpuScore))
 }
