@@ -1,4 +1,4 @@
-FROM golang:1.20-bullseye as builder
+FROM golang:1.20-alpine as builder
 
 WORKDIR /app
 
@@ -10,5 +10,8 @@ COPY ./ ./
 
 RUN go build -o /api
 
-EXPOSE 3000
+FROM alpine:3
+COPY --from=builder /api .
+
+
 CMD ["/api"]
