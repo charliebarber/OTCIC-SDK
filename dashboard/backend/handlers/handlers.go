@@ -107,3 +107,13 @@ func RetrieveTDP(c *fiber.Ctx) error {
 
 	return c.JSON(cpuTdp)
 }
+
+func RetrieveLoadAvg(c *fiber.Ctx) error {
+	loadAvg := struct {
+		LoadAvg float64 `json:"loadAvg"`
+	}{
+		LoadAvg: utils.GetLoadAvg(c.Query("appName")),
+	}
+
+	return c.JSON(loadAvg)
+}

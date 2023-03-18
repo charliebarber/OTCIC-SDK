@@ -29,5 +29,7 @@ func main() {
 
 	api.Get("/tdp", handlers.RetrieveTDP)
 
+	api.Get("/loadAvg", handlers.RetrieveLoadAvg)
+
 	app.Listen(":54321")
 }

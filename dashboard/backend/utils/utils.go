@@ -5,9 +5,11 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"encoding/json"
+	"otcic/api/database"
 	"otcic/api/models"
 
 	"github.com/lithammer/fuzzysearch/fuzzy"
@@ -92,4 +94,14 @@ func GetCpuTdp(cpuModel string) int {
 	fmt.Println("Distance was", closestDistance)
 
 	return closestMatch.TDP
+}
+
+func GetLoadAvg(app string) float64 {
+	baseUrl := "http://prometheus:9090/api/v1/query?query="
+	resultValue := database.FetchSingleMetric(baseUrl, app, "loadavg_gauge")
+	val, err := strconv.ParseFloat(resultValue.Val, 64)
+	if err != nil {
+		log.Fatal("Error converting load avg", err)
+	}
+	return val
 }
