@@ -22,6 +22,8 @@ from .aggregate import AggregateModel
 
 from cpuinfo import get_cpu_info
 
+import psutil
+
 import requests
 url = "http://api:54321/api/apps"
 
@@ -46,7 +48,8 @@ def setup(service_name):
     appObject = {
         'appName': service_name,
         'language': "python",
-        'cpuModel': model
+        'cpuModel': model,
+        'cores': psutil.cpu_count()
     }
     requests.post(url, appObject)
 
