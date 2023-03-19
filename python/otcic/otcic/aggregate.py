@@ -23,7 +23,6 @@ class AggregateModel:
             "vram": VRAMTracer(self.process)
         }
         self.lock = False
-        print("Aggr creation, pid:", self.process.pid)
 
     def measure(self):
         if self.lock:
