@@ -31,7 +31,7 @@ func main() {
 
 	api.Get("/loadAvg", handlers.RetrieveLoadAvg)
 
-	api.Get("sciScore", handlers.RetrieveSCI)
+	api.Get("/sciScore", handlers.RetrieveSCI)
 
 	app.Listen(":54321")
 }

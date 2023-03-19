@@ -3,6 +3,7 @@
     import { fetchMetrics } from '../../../utils';
     import { onMount } from 'svelte';
     import MetricGraph from '$lib/MetricGraph.svelte';
+    import SCIScore from '$lib/SCIScore.svelte';
 
     console.log(data)
   
@@ -12,11 +13,12 @@
     let gpu = {}
     let vram = {}
     let loadAvg = 0.0
+    let sci = 0
 
     onMount(async () => {
         ({cpu, ram, disk, gpu, vram, loadAvg} = await fetchMetrics(data.slug));
         let interval = setInterval(async () => {
-            ({cpu, ram, disk, gpu, vram, loadAvg} = await fetchMetrics(data.slug));
+            ({cpu, ram, disk, gpu, vram, loadAvg, sci} = await fetchMetrics(data.slug));
         }, 10000);
 
         return () => clearInterval(interval);
@@ -24,7 +26,7 @@
     
   
     async function handleReload(event) {
-        ({cpu, ram, disk, gpu, vram} = await fetchMetrics(data.slug));
+        ({cpu, ram, disk, gpu, vram, sci} = await fetchMetrics(data.slug));
     }
 </script>
 
@@ -50,6 +52,10 @@
         <span><strong>CPU Load Avg: </strong>{loadAvg}</span>
     </div>
 </div>
+
+<br>
+
+<SCIScore score={sci} />
 
 <br>
 
