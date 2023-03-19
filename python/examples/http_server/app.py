@@ -3,7 +3,6 @@ from flask import Flask, request
 from functools import wraps
 import sys
 import otcic
-#import multiprocessing
 
 TABLE_MAX = 16
 ROW_LENGTH = 2**16
@@ -38,8 +37,6 @@ def print_table():
 @otcic.ram_trace
 def make_row() -> Row:
     return list(map(expensive_function, range(ROW_LENGTH)))
-    # with multiprocessing.Pool() as pool:
-    #     return pool.map(expensive_function, range(ROW_LENGTH), CHUNK_SIZE)
 
 
 def table_template(func):
