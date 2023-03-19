@@ -12,3 +12,4 @@ class CPUTracer(DataDoubleQueue):
 
     def collapse(self, start: int, interval: int):
         cpu_usage = self.process.cpu_percent() * core_mult
+        self.aggregate.append((start, interval, cpu_usage))
