@@ -68,7 +68,7 @@
 <br />
 
 <div class="grid">
-	<MetricGraph label="Disk I/O bytes" metric={disk} />
+	<MetricGraph label="Disk I/O in MB" metric={disk} />
 
 	<MetricGraph label="GPU Usage %" metric={gpu} />
 
