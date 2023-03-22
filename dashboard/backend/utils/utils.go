@@ -122,5 +122,13 @@ func CalculateSCI(appName string) int {
 	}
 	memScore := 0.3725 * (memVal / 1024.0)
 
-	return int(math.Round(cpuScore + memScore))
+	// Per HDD: PHDD= 0.65 Wh/TBh x MemSize
+	disk := database.FetchMetricAverage(baseUrl, appName, "disk_gauge", "5m")
+	diskVal, err := strconv.ParseFloat(disk.Val, 64)
+	if err != nil {
+		log.Fatal("Error converting disk val", err)
+	}
+	diskScore := 0.65 * (diskVal / 1024.0)
+
+	return int(math.Round(cpuScore + memScore + diskScore))
 }

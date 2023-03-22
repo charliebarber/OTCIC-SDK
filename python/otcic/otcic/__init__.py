@@ -126,7 +126,8 @@ def setup(service_name):
         pair = aggregate_data[len(aggregate_data)-1][2]
         val = pair[0] + pair[1]
 
-        yield Observation(val)
+        # change bytes to mb by dividing by 1000000
+        yield Observation(val / 1000000)
 
     meter.create_observable_gauge(
         "disk_gauge",
