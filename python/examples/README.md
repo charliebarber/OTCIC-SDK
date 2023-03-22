@@ -20,7 +20,15 @@ This is a simple HTTP web server powered by Flask. To run the example use:
 flask --app python/examples/http_server/app.py run
 ```
 
-To ping the server, go to: `localhost:5000/rolldice`
-If running on docker, go to `127.0.0.1/rolldice`
+When running the server, you can go to 3 links:
+
+Server ADD: `localhost:4949/add`
+Add a row to a table (simulate increased memory usage).
+
+Server MOD: `localhost:4949/mod`
+Modify a random row in the table.
+
+Server DEL: `localhost:4949/del`
+Delete a row from the table (simulate decreased memory usage).
 
 If you have the Collector running as described in the parent directory, this will start logging the results to a `metrics.json` file. 
