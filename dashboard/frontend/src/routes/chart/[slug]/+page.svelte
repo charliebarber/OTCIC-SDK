@@ -5,8 +5,6 @@
 	import MetricGraph from '$lib/MetricGraph.svelte';
 	import SCIScore from '$lib/SCIScore.svelte';
 
-	console.log(data);
-
 	let cpu = {};
 	let ram = {};
 	let disk = {};
@@ -26,6 +24,7 @@
 
 	async function handleReload(event) {
 		({ cpu, ram, disk, gpu, vram, sci } = await fetchMetrics(data.slug));
+		console.log(sci);
 	}
 </script>
 
@@ -55,7 +54,7 @@
 
 <br />
 
-<SCIScore score={sci} />
+<SCIScore score={sci.score} />
 
 <br />
 

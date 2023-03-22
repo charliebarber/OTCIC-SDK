@@ -119,11 +119,7 @@ func RetrieveLoadAvg(c *fiber.Ctx) error {
 }
 
 func RetrieveSCI(c *fiber.Ctx) error {
-	sciScore := struct {
-		SciScore int `json:"sciScore"`
-	}{
-		SciScore: utils.CalculateSCI(c.Query("appName")),
-	}
+	sci := utils.CalculateSCI(c.Query("appName"))
 
-	return c.JSON(sciScore)
+	return c.JSON(sci)
 }
