@@ -27,6 +27,12 @@ export async function fetchMetrics(appName) {
     const vramRes = await fetch(`${url}/api/app/${appName}/vram/5m`)
     const vramData = await vramRes.json()
 
+    const loadAvgRes = await fetch(`${url}/api/loadAvg?appName=${appName}`)
+    const loadAvgData = await loadAvgRes.json()
+
+    const sciRes = await fetch(`${url}/api/sciScore?appName=${appName}`)
+    const sci = await sciRes.json()
+
     return { 
         cpu: {
             data: cpuData.values.map((value) => (value.val * 100)),
@@ -47,6 +53,8 @@ export async function fetchMetrics(appName) {
         vram: {
             data: vramData.values.map((value) => value.val),
             labels: vramData.values.map((value) => getFormattedDate(value))
-        }
+        },
+        loadAvg: loadAvgData.loadAvg,
+        sci: sci.sciScore,
     }
 }

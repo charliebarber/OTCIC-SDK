@@ -22,6 +22,9 @@ from .aggregate import AggregateModel
 
 from cpuinfo import get_cpu_info
 
+import psutil
+import os
+
 import requests
 url = "http://api:54321/api/apps"
 
@@ -46,7 +49,8 @@ def setup(service_name):
     appObject = {
         'appName': service_name,
         'language': "python",
-        'cpuModel': model
+        'cpuModel': model,
+        'cores': psutil.cpu_count()
     }
     requests.post(url, appObject)
 
@@ -92,13 +96,23 @@ def setup(service_name):
         callbacks=[cpu_gauge_func]
     )
 
+    def loadavg_gauge_func(options):
+        load1, load5, load15 = os.getloadavg()
+        yield Observation(load1)
+
+    meter.create_observable_gauge(
+        "loadavg_gauge",
+        callbacks=[loadavg_gauge_func]
+    )
+
     def ram_gauge_func(options):
         aggregate.measure()
         metrics = aggregate.get_metrics()
         aggregate_data = metrics["ram"]
         val = aggregate_data[len(aggregate_data)-1][2]
 
-        yield Observation(val)
+        # change bytes to mb by dividing by 1000000
+        yield Observation(val / 1000000)
 
     meter.create_observable_gauge(
         "ram_gauge",
@@ -112,7 +126,8 @@ def setup(service_name):
         pair = aggregate_data[len(aggregate_data)-1][2]
         val = pair[0] + pair[1]
 
-        yield Observation(val)
+        # change bytes to mb by dividing by 1000000
+        yield Observation(val / 1000000)
 
     meter.create_observable_gauge(
         "disk_gauge",

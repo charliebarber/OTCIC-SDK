@@ -1,14 +1,17 @@
 package utils
 
 import (
-	"fmt"
 	"io"
 	"log"
+	"math"
 	"net/http"
+	"strconv"
 	"time"
 
 	"encoding/json"
+	"otcic/api/database"
 	"otcic/api/models"
+	"otcic/api/storage"
 
 	"github.com/lithammer/fuzzysearch/fuzzy"
 
@@ -80,7 +83,6 @@ func GetCpuTdp(cpuModel string) int {
 	closestDistance := 64
 	var closestMatch models.CpuData
 	for _, cpu := range cpuTdps {
-		fmt.Println("CPU: ", cpu.Model, "TDP: ", cpu.TDP)
 		rank := fuzzy.LevenshteinDistance(cpu.Model, cpuModel)
 		if rank >= 0 && rank < closestDistance {
 			closestMatch = cpu
@@ -88,8 +90,45 @@ func GetCpuTdp(cpuModel string) int {
 		}
 	}
 
-	fmt.Println("Closest match to ", cpuModel, "was ", closestMatch.Model, "with TDP", closestMatch.TDP)
-	fmt.Println("Distance was", closestDistance)
-
 	return closestMatch.TDP
+}
+
+func GetLoadAvg(app string) float64 {
+	baseUrl := "http://prometheus:9090/api/v1/query?query="
+	resultValue := database.FetchSingleMetric(baseUrl, app, "loadavg_gauge")
+	val, err := strconv.ParseFloat(resultValue.Val, 64)
+	if err != nil {
+		log.Fatal("Error converting load avg", err)
+	}
+	return val
+}
+
+func CalculateSCI(appName string) int {
+	baseUrl := "http://prometheus:9090/api/v1/query?query="
+
+	// CPU: n cores * TDP * log(loadCPU * 100)/log(200)
+	loadAvg := GetLoadAvg(appName)
+	appInfo := storage.Apps[appName]
+	tdp := GetCpuTdp(appInfo.CpuModel)
+	cores := appInfo.Cores
+
+	cpuScore := (float64(cores) * float64(tdp) * math.Log10(loadAvg*100)) / math.Log10(200)
+
+	// PRAM = 0.3725 W/GB x memAlloc
+	mem := database.FetchMetricAverage(baseUrl, appName, "ram_gauge", "5m")
+	memVal, err := strconv.ParseFloat(mem.Val, 64)
+	if err != nil {
+		log.Fatal("Error converting mem val", err)
+	}
+	memScore := 0.3725 * (memVal / 1024.0)
+
+	// Per HDD: PHDD= 0.65 Wh/TBh x MemSize
+	disk := database.FetchMetricAverage(baseUrl, appName, "disk_gauge", "5m")
+	diskVal, err := strconv.ParseFloat(disk.Val, 64)
+	if err != nil {
+		log.Fatal("Error converting disk val", err)
+	}
+	diskScore := 0.65 * (diskVal / 1024.0)
+
+	return int(math.Round(cpuScore + memScore + diskScore))
 }

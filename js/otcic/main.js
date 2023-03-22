@@ -48,6 +48,7 @@ function setup(serviceName) {
       appName: serviceName,
       language: "JavaScript",
       cpuModel: os.cpus()[0].model,
+      cores: os.cpus().length,
     })
     .catch((err) => {
       console.log("Error posting new app to API: ", err);
@@ -89,6 +90,17 @@ function setup(serviceName) {
     result.observe(percent);
   });
 
+  // CPU Load avg - unix specific
+  const loadAvgGauge = meter.createObservableGauge("loadavg_gauge", {
+    description: "Load Average 1m",
+    unit: "load",
+  });
+
+  loadAvgGauge.addCallback((result) => {
+    const [LoadAvg1m, LoadAvg5m, LoadAvg15m] = os.loadavg();
+    result.observe(LoadAvg1m);
+  });
+
   // Gauge to monitor memory use as a %
   const memoryUsageGauge = meter.createObservableGauge("ram_gauge", {
     description: "Memory usage",
@@ -99,7 +111,8 @@ function setup(serviceName) {
     const { heapTotal, heapUsed } = process.memoryUsage();
     const totalMemory = os.totalmem();
     const percent = heapTotal / totalMemory;
-    result.observe(heapUsed);
+    // convert bytes to mb by dividing by 1000000
+    result.observe(heapUsed / 1000000);
   });
 
   // Disk gauge
