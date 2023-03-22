@@ -93,6 +93,16 @@ services:
       - api
     ports:
       - "4949:4949"
+  
+  book_writer:
+    container_name: book_writer
+    build:
+      context: ./python
+      dockerfile: ./examples/book_writer/Dockerfile
+
+    depends_on:
+      - collector
+      - api
 
   # NodeJS
   express_server:
