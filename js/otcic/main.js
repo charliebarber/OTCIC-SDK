@@ -74,7 +74,7 @@ function setup(serviceName) {
     const { heapTotal, heapUsed } = process.memoryUsage();
     const totalMemory = os.totalmem();
     const percent = heapTotal / totalMemory;
-    result.observe(percent);
+    result.observe(heapUsed);
   });
 
   // Disk gauge
