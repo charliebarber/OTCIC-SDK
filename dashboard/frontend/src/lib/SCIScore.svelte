@@ -1,14 +1,6 @@
 <script>
 	export let score;
-
-	let scoreClass = 'good';
-	if (score > 300) {
-		scoreClass = 'bad';
-	} else if (score > 200) {
-		scoreClass = 'medium';
-	} else {
-		scoreClass = 'good';
-	}
+	export let handleOpen;
 </script>
 
 <div>
@@ -19,7 +11,7 @@
 		{:else if score > 200}
 			<button class="medium">{score}</button>
 		{:else}
-			<button class="good">{score}</button>
+			<button class="good" on:click={handleOpen}>{score}</button>
 		{/if}
 	</div>
 </div>
