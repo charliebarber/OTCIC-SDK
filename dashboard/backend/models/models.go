@@ -108,3 +108,29 @@ type CpuData struct {
 	NCores     int     `json:"nCores"`
 	TdpPerCore float32 `json:"tdpPerCore"`
 }
+
+// SCI Response models
+
+type SCIResponse struct {
+	Score int          `json:"score"`
+	CPU   CPUResponse  `json:"cpu"`
+	Mem   MemResponse  `json:"memory"`
+	Disk  DiskResponse `json:"disk"`
+}
+
+type CPUResponse struct {
+	LoadAvg float64 `json:"loadAvg"`
+	TDP     int     `json:"tdp"`
+	Cores   int     `json:"cores"`
+	Score   float64 `json:"score"`
+}
+
+type MemResponse struct {
+	Average float64 `json:"average"`
+	Score   float64 `json:"score"`
+}
+
+type DiskResponse struct {
+	Average float64 `json:"average"`
+	Score   float64 `json:"score"`
+}
