@@ -103,7 +103,7 @@ func GetLoadAvg(app string) float64 {
 	return val
 }
 
-func CalculateSCI(appName string) int {
+func CalculateSCI(appName string) models.SCIResponse {
 	baseUrl := "http://prometheus:9090/api/v1/query?query="
 
 	// CPU: n cores * TDP * log(loadCPU * 100)/log(200)
@@ -113,6 +113,12 @@ func CalculateSCI(appName string) int {
 	cores := appInfo.Cores
 
 	cpuScore := (float64(cores) * float64(tdp) * math.Log10(loadAvg*100)) / math.Log10(200)
+	cpuRes := models.CPUResponse{
+		loadAvg,
+		tdp,
+		cores,
+		cpuScore,
+	}
 
 	// PRAM = 0.3725 W/GB x memAlloc
 	mem := database.FetchMetricAverage(baseUrl, appName, "ram_gauge", "5m")
@@ -121,6 +127,10 @@ func CalculateSCI(appName string) int {
 		log.Fatal("Error converting mem val", err)
 	}
 	memScore := 0.3725 * (memVal / 1024.0)
+	memRes := models.MemResponse{
+		memVal,
+		memScore,
+	}
 
 	// Per HDD: PHDD= 0.65 Wh/TBh x MemSize
 	disk := database.FetchMetricAverage(baseUrl, appName, "disk_gauge", "5m")
@@ -129,6 +139,15 @@ func CalculateSCI(appName string) int {
 		log.Fatal("Error converting disk val", err)
 	}
 	diskScore := 0.65 * (diskVal / 1024.0)
+	diskRes := models.DiskResponse{
+		diskVal,
+		diskScore,
+	}
 
-	return int(math.Round(cpuScore + memScore + diskScore))
+	return models.SCIResponse{
+		int(math.Round(cpuScore + memScore + diskScore)),
+		cpuRes,
+		memRes,
+		diskRes,
+	}
 }
