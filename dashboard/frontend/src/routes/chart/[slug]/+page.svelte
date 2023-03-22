@@ -2,8 +2,10 @@
 	export let data;
 	import { fetchMetrics } from '../../../utils';
 	import { onMount } from 'svelte';
+	import { Modals, closeModal, openModal, modals } from 'svelte-modals';
 	import MetricGraph from '$lib/MetricGraph.svelte';
 	import SCIScore from '$lib/SCIScore.svelte';
+	import SCIModal from '$lib/SCIModal.svelte';
 
 	let cpu = {};
 	let ram = {};
@@ -11,7 +13,7 @@
 	let gpu = {};
 	let vram = {};
 	let loadAvg = 0.0;
-	let sci = 0;
+	let sci = {};
 
 	onMount(async () => {
 		({ cpu, ram, disk, gpu, vram, loadAvg } = await fetchMetrics(data.slug));
@@ -25,6 +27,12 @@
 	async function handleReload(event) {
 		({ cpu, ram, disk, gpu, vram, sci } = await fetchMetrics(data.slug));
 		console.log(sci);
+	}
+
+	function handleOpen() {
+		openModal(SCIModal, {
+			sci: sci
+		});
 	}
 </script>
 
@@ -54,7 +62,7 @@
 
 <br />
 
-<SCIScore score={sci.score} />
+<SCIScore score={sci.score} {handleOpen} />
 
 <br />
 
