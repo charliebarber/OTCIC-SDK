@@ -85,3 +85,41 @@ func FetchMetrics(baseUrl string, appName string, metric string, duration string
 
 	return promResponse.ResponseData.ResultData[0]
 }
+
+func FetchMetricAverage(baseUrl string, appName string, metric string, duration string) models.Value {
+	promResponse := models.PromQLResponse{}
+
+	url := baseUrl + "avg_over_time(" + metric + "{job=\"" + appName + "\"}" + "[" + duration + "])"
+
+	client := http.Client{
+		Timeout: time.Second * 3,
+	}
+
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		log.Print(err)
+	}
+
+	req.Header.Set("User-Agent", "otcic-api")
+
+	res, getErr := client.Do(req)
+	if getErr != nil {
+		log.Print(getErr)
+	}
+
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+
+	body, readErr := ioutil.ReadAll(res.Body)
+	if readErr != nil {
+		log.Print(readErr)
+	}
+
+	jsonErr := json.Unmarshal(body, &promResponse)
+	if jsonErr != nil {
+		log.Print(jsonErr)
+	}
+
+	return promResponse.ResponseData.ResultData[0].ResultValue
+}

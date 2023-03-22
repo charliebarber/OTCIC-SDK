@@ -17,12 +17,38 @@ const os = require("os");
 const url = "http://api:54321/api/apps";
 const INTERVAL = 3;
 
+function getCpuPercent() {
+  let startUsage = process.cpuUsage();
+  let startTime = process.hrtime.bigint();
+
+  // now given in milliseconds
+  const now = Date.now();
+  // let cpu spin for 100ms
+  while (Date.now() - now < 100);
+
+  let endTime = process.hrtime.bigint();
+  // given in nanoseconds 1000 ns = 1 micros
+  let elapsedTime = endTime - startTime;
+  // 1,000,000 nano seconds = 1ms
+  let elapsedTimeMS = Number(1000000n * elapsedTime);
+  // given in microseconds, 1000 micro = 1 ms
+  let elapsedUsage = process.cpuUsage(startUsage);
+  let usageMS = Object.values(elapsedUsage).map((usage) => usage * 1000);
+
+  let cpuPercent = (100 * (usageMS[0] + usageMS[1])) / elapsedTimeMS;
+
+  return cpuPercent;
+}
+
+let lastCpuPercent = 0.0;
+
 function setup(serviceName) {
   axios
     .post(url, {
       appName: serviceName,
       language: "JavaScript",
       cpuModel: os.cpus()[0].model,
+      cores: os.cpus().length,
     })
     .catch((err) => {
       console.log("Error posting new app to API: ", err);
@@ -57,11 +83,22 @@ function setup(serviceName) {
   });
 
   cpuGauge.addCallback((result) => {
-    const usage = process.cpuUsage(prevCpuTime);
-    prevCpuTime = usage;
     // User CPU time and System CPU time
     // User measures the time taken by app
-    result.observe(usage.user);
+    let percent = getCpuPercent();
+
+    result.observe(percent);
+  });
+
+  // CPU Load avg - unix specific
+  const loadAvgGauge = meter.createObservableGauge("loadavg_gauge", {
+    description: "Load Average 1m",
+    unit: "load",
+  });
+
+  loadAvgGauge.addCallback((result) => {
+    const [LoadAvg1m, LoadAvg5m, LoadAvg15m] = os.loadavg();
+    result.observe(LoadAvg1m);
   });
 
   // Gauge to monitor memory use as a %
@@ -74,7 +111,8 @@ function setup(serviceName) {
     const { heapTotal, heapUsed } = process.memoryUsage();
     const totalMemory = os.totalmem();
     const percent = heapTotal / totalMemory;
-    result.observe(percent);
+    // convert bytes to mb by dividing by 1000000
+    result.observe(heapUsed / 1000000);
   });
 
   // Disk gauge

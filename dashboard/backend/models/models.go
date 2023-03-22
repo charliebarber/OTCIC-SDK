@@ -7,6 +7,13 @@ import (
 
 // App structs
 
+type AppInfo struct {
+	AppName  string `json:"appName"`
+	Language string `json:"language"`
+	CpuModel string `json:"cpuModel"`
+	Cores    int    `json:"cores"`
+}
+
 type Application struct {
 	AppName  string `json:"appName"`
 	Language string `json:"language"`

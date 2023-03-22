@@ -29,5 +29,9 @@ func main() {
 
 	api.Get("/tdp", handlers.RetrieveTDP)
 
+	api.Get("/loadAvg", handlers.RetrieveLoadAvg)
+
+	api.Get("/sciScore", handlers.RetrieveSCI)
+
 	app.Listen(":54321")
 }

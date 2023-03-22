@@ -11,15 +11,17 @@ import (
 
 // Creates a new app in the local API storage
 func AppCreate(c *fiber.Ctx) error {
-	received := new(models.Application)
+	received := new(models.AppInfo)
 
 	if err := c.BodyParser(received); err != nil {
 		return c.Status(400).SendString(err.Error())
 	}
 
-	storage.Apps[received.AppName] = models.AppPair{
+	storage.Apps[received.AppName] = models.AppInfo{
+		received.AppName,
 		received.Language,
 		received.CpuModel,
+		received.Cores,
 	}
 
 	return c.SendString("Received app " + received.AppName)
@@ -29,7 +31,7 @@ func ListApps(c *fiber.Ctx) error {
 	appsJson := models.Applications{}
 
 	baseUrl := "http://prometheus:9090/api/v1/query?query="
-	for name, pair := range storage.Apps {
+	for name, info := range storage.Apps {
 		if c.Query("metric") == "true" {
 			sci := "n/a"
 			cpu := database.FetchSingleMetric(baseUrl, name, "cpu_gauge")
@@ -40,8 +42,8 @@ func ListApps(c *fiber.Ctx) error {
 
 			appsJson.Applications = append(appsJson.Applications, models.Application{
 				name,
-				pair.Language,
-				pair.CpuModel,
+				info.Language,
+				info.CpuModel,
 				sci,
 				cpu.Val,
 				ram.Val,
@@ -52,8 +54,8 @@ func ListApps(c *fiber.Ctx) error {
 		} else {
 			appsJson.Applications = append(appsJson.Applications, models.Application{
 				name,
-				pair.Language,
-				pair.CpuModel,
+				info.Language,
+				info.CpuModel,
 				"",
 				"",
 				"",
@@ -104,4 +106,24 @@ func RetrieveTDP(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(cpuTdp)
+}
+
+func RetrieveLoadAvg(c *fiber.Ctx) error {
+	loadAvg := struct {
+		LoadAvg float64 `json:"loadAvg"`
+	}{
+		LoadAvg: utils.GetLoadAvg(c.Query("appName")),
+	}
+
+	return c.JSON(loadAvg)
+}
+
+func RetrieveSCI(c *fiber.Ctx) error {
+	sciScore := struct {
+		SciScore int `json:"sciScore"`
+	}{
+		SciScore: utils.CalculateSCI(c.Query("appName")),
+	}
+
+	return c.JSON(sciScore)
 }

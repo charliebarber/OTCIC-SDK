@@ -4,4 +4,4 @@ import (
 	"otcic/api/models"
 )
 
-var Apps = make(map[string]models.AppPair)
+var Apps = make(map[string]models.AppInfo)
