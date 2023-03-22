@@ -111,7 +111,8 @@ def setup(service_name):
         aggregate_data = metrics["ram"]
         val = aggregate_data[len(aggregate_data)-1][2]
 
-        yield Observation(val)
+        # change bytes to mb by dividing by 1000000
+        yield Observation(val / 1000000)
 
     meter.create_observable_gauge(
         "ram_gauge",

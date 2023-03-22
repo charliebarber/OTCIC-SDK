@@ -104,6 +104,8 @@ func GetLoadAvg(app string) float64 {
 }
 
 func CalculateSCI(appName string) int {
+	baseUrl := "http://prometheus:9090/api/v1/query?query="
+
 	// CPU: n cores * TDP * log(loadCPU * 100)/log(200)
 	loadAvg := GetLoadAvg(appName)
 	appInfo := storage.Apps[appName]
@@ -112,5 +114,13 @@ func CalculateSCI(appName string) int {
 
 	cpuScore := (float64(cores) * float64(tdp) * math.Log10(loadAvg*100)) / math.Log10(200)
 
-	return int(math.Round(cpuScore))
+	// PRAM = 0.3725 W/GB x memAlloc
+	mem := database.FetchMetricAverage(baseUrl, appName, "ram_gauge", "5m")
+	memVal, err := strconv.ParseFloat(mem.Val, 64)
+	if err != nil {
+		log.Fatal("Error converting mem val", err)
+	}
+	memScore := 0.3725 * (memVal / 1024.0)
+
+	return int(math.Round(cpuScore + memScore))
 }
