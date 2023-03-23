@@ -5,7 +5,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
-	"otcic/api/handlers"
+	"github.com/charliebarber/OTCIC-SDK/api/handlers"
 )
 
 func main() {
