@@ -12,6 +12,7 @@ import (
 
 	"otcic/api/models"
 	"otcic/api/storage"
+	"otcic/api/utils"
 )
 
 func TestAppCreate(t *testing.T) {
@@ -144,4 +145,39 @@ func TestListApps(t *testing.T) {
 			assert.Equal(t, "", applications.Applications[0].VramVal)
 		})
 	}
+}
+
+func TestRetrieveCI(t *testing.T) {
+	app := Setup()
+
+	// create a mock response
+	mockCIIntensity := models.CIIntensity{
+		Forecast: 0,
+		Actual:   0,
+	}
+
+	// Set the mock response
+	utils.GetCarbonIntensity = func() models.CIIntensity {
+		return mockCIIntensity
+	}
+
+	// Create a request
+	req, err := http.NewRequest(http.MethodGet, "/api/ci", nil)
+	res, err := app.Test(req, -1)
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode)
+
+	resBody, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Check the response body contains the expected data
+	var resCI models.CIIntensity
+	err = json.Unmarshal(resBody, &resCI)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert.Equal(t, mockCIIntensity, resCI)
 }
