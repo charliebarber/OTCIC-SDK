@@ -3,8 +3,8 @@ jobs:
     - language: go
       go: 1.20
       before_script:
-        - cd dashboard/backend
-        - go get .
-      script:
-        - go test -v
-      script: go build
+        - cd api
+      - stage: test:
+        script: go test -v
+      - stage: build:
+        script: go build -v
