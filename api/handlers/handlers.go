@@ -3,10 +3,10 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v2"
 
-	"otcic/api/database"
-	"otcic/api/models"
-	"otcic/api/storage"
-	"otcic/api/utils"
+	"github.com/charliebarber/OTCIC-SDK/api/database"
+	"github.com/charliebarber/OTCIC-SDK/api/models"
+	"github.com/charliebarber/OTCIC-SDK/api/storage"
+	"github.com/charliebarber/OTCIC-SDK/api/utils"
 )
 
 // Creates a new app in the local API storage

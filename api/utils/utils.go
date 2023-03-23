@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"encoding/json"
-	"otcic/api/database"
-	"otcic/api/models"
-	"otcic/api/storage"
+	"github.com/charliebarber/OTCIC-SDK/api/database"
+	"github.com/charliebarber/OTCIC-SDK/api/models"
+	"github.com/charliebarber/OTCIC-SDK/api/storage"
 
 	"github.com/lithammer/fuzzysearch/fuzzy"
 

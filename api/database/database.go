@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/charliebarber/OTCIC-SDK/api/models"
 	"github.com/goccy/go-json"
-	"otcic/api/models"
 )
 
 func FetchSingleMetric(baseUrl string, appName string, metric string) models.Value {
