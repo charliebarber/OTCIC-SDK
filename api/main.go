@@ -9,11 +9,19 @@ import (
 )
 
 func main() {
+	app := Setup()
+
+	app.Listen(":54321")
+}
+
+func Setup() *fiber.App {
 	app := fiber.New(fiber.Config{
 		AppName:     "otcic-api",
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
 	})
+
+	storage.Apps = make(map[string]models.AppInfo)
 
 	app.Use(cors.New())
 
@@ -33,5 +41,5 @@ func main() {
 
 	api.Get("/sciScore", handlers.RetrieveSCI)
 
-	app.Listen(":54321")
+	return app
 }

@@ -18,7 +18,7 @@ import (
 	"embed"
 )
 
-func GetCarbonIntensity() models.CIIntensity {
+var GetCarbonIntensity = func() models.CIIntensity {
 	baseUrl := "http://api.carbonintensity.org.uk"
 	url := baseUrl + "/intensity"
 

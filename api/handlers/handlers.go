@@ -14,7 +14,7 @@ func AppCreate(c *fiber.Ctx) error {
 	received := new(models.AppInfo)
 
 	if err := c.BodyParser(received); err != nil {
-		return c.Status(400).SendString(err.Error())
+		return c.Status(400).SendString("Error parsing request body")
 	}
 
 	storage.Apps[received.AppName] = models.AppInfo{
