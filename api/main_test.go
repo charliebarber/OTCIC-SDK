@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 
@@ -164,6 +165,7 @@ func TestRetrieveCI(t *testing.T) {
 
 	// Create a request
 	req, err := http.NewRequest(http.MethodGet, "/api/ci", nil)
+
 	res, err := app.Test(req, -1)
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode)
@@ -185,4 +187,41 @@ func TestRetrieveCI(t *testing.T) {
 
 func TestRetrieveTDP(t *testing.T) {
 	app := Setup()
+
+	// create a mock response
+	mockTDP := struct {
+		Tdp int
+	}{
+		Tdp: 65,
+	}
+
+	// Create a request
+	req, err := http.NewRequest(http.MethodGet, "/api/tdp", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	query := url.Values{}
+	query.Add("cpuModel", "Ryzen 5 3600")
+	req.URL.RawQuery = query.Encode()
+
+	res, err := app.Test(req, -1)
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode)
+
+	resBody, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Check the response body contains the expected data
+	var resTDP struct {
+		Tdp int
+	}
+	err = json.Unmarshal(resBody, &resTDP)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	assert.Equal(t, mockTDP, resTDP)
 }
