@@ -65,10 +65,14 @@ class TestCollapseAvgB(unittest.TestCase):
 
     def test_avg(self):
         for data in self.data:
-            merged_avgs = [
-                utils.collapse_avg(data, self.start + self.interval * i, self.interval)[0]
-                for i in range(3)
-            ]
+            merged_avgs = []
+            data_copy = data.copy()
+            for i in range(3):
+                avg, newdata = utils.collapse_avg(data_copy, self.start + self.interval * i, self.interval)
+                merged_avgs.append(avg)
+                data_copy.clear()
+                data_copy.extend(newdata)
+
             normal_avg = utils.collapse_avg(data, self.start, self.interval * 3)[0]
             self.assertAlmostEqual(
                 sum(merged_avgs) / 3,
