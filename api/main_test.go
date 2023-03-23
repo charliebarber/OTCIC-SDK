@@ -10,9 +10,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"otcic/api/models"
-	"otcic/api/storage"
-	"otcic/api/utils"
+	"github.com/charliebarber/OTCIC-SDK/api/models"
+	"github.com/charliebarber/OTCIC-SDK/api/storage"
+	"github.com/charliebarber/OTCIC-SDK/api/utils"
 )
 
 func TestAppCreate(t *testing.T) {
