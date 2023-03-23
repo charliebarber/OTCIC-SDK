@@ -142,4 +142,5 @@ function setup(serviceName) {
 
 module.exports = {
   setup,
+  getCpuPercent,
 };
