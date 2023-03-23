@@ -49,15 +49,14 @@ The application is a simple Express app listening for HTTP requests. `instrument
 
 ### Python
 
-Installation:
-
-```
-pip install -e python/otcic
-```
+Installation: `pip install -e python/otcic`
 
 This installs the otcic package locally from the `python` folder containing the `otcic` module.
+
+For unit testing, run `python -m pytest`.
 
 ### Links
 
 [HTTP Server Instructions](python/examples/README.md)
+
 [OTCIC Python Module Disclaimers](python/otcic/README.md)
