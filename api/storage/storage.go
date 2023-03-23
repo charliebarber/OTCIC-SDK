@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"otcic/api/models"
+	"github.com/charliebarber/OTCIC-SDK/api/models"
 )
 
 var Apps = make(map[string]models.AppInfo)
