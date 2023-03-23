@@ -147,6 +147,7 @@ func TestListApps(t *testing.T) {
 	}
 }
 
+// white box testing using mock
 func TestRetrieveCI(t *testing.T) {
 	app := Setup()
 
@@ -180,4 +181,8 @@ func TestRetrieveCI(t *testing.T) {
 	}
 
 	assert.Equal(t, mockCIIntensity, resCI)
+}
+
+func TestRetrieveTDP(t *testing.T) {
+	app := Setup()
 }
