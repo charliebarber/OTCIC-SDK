@@ -1,5 +1,7 @@
 # OTCIC SDK
 
+[![Build Status](https://app.travis-ci.com/charliebarber/OTCIC-SDK.svg?branch=main)](https://app.travis-ci.com/charliebarber/OTCIC-SDK)
+
 The Open Telemetry Carbon Intensity Calculator SDK (OTCIC SDK) is a project between [UCL](https://www.ucl.ac.uk/) Computer Science students
 and [NTT Data](https://www.nttdata.com/global/en) who are working on a calculator for Software Carbon Intensity.
 Our role as students is to create an SDK to feed data into this calculator.
