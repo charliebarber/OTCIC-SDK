@@ -7,8 +7,3 @@ jobs:
       script:
         - go test -v
         - go build -v
-
-    - language: node_js
-      node_js: 19
-      before_script:
-        - cd js/otcic
