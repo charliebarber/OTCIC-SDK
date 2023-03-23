@@ -1,9 +1,9 @@
-module otcic/api
+module github.com/charliebarber/OTCIC-SDK/api
 
 go 1.19
 
 require (
-	github.com/goccy/go-json v0.10.1
+	github.com/goccy/go-json v0.10.2
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/lithammer/fuzzysearch v1.1.5
 	github.com/stretchr/testify v1.8.2

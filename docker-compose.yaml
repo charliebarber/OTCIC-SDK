@@ -64,7 +64,7 @@ services:
   api:
     container_name: api
     build:
-      context: ./dashboard/backend
+      context: ./api
       dockerfile: Dockerfile
     ports:
       - "54321:54321"
