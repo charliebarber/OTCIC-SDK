@@ -8,8 +8,6 @@ from .ram_tracer import RAMTracer
 from .disk_tracer import DiskTracer
 from .gpu_tracer import GPUTracer, VRAMTracer
 
-import os
-
 class AggregateModel:
     def __init__(self, interval: int):
         self.interval = interval
@@ -29,8 +27,6 @@ class AggregateModel:
             return
 
         self.lock = True
-
-        #print("Aggr Process (curr,par): {:>4} | {:>4}".format(os.getpid(), os.getppid()))
 
         tracer_values = self.tracers.values()
         for tracer in tracer_values:
