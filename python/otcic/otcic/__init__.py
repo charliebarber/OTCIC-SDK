@@ -38,6 +38,7 @@ def ram_trace(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         aggregate.tracers["ram"].measure()
+        aggregate.tracers["vram"].measure()
         return func(*args, **kwargs)
     return wrapper
 

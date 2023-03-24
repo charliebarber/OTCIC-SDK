@@ -1,4 +1,5 @@
 from psutil import Process
+import os
 
 from .ddqueue import DataDoubleQueue
 from .utils import collapse_avg
