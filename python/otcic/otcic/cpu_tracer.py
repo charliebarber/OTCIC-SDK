@@ -1,7 +1,7 @@
 import time
 import psutil
 Process = psutil.Process
-core_mult = (1 / psutil.cpu_count()) * 0.01
+core_mult = (1 / psutil.cpu_count())
 
 from .ddqueue import DataDoubleQueue
 

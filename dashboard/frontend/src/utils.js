@@ -35,7 +35,7 @@ export async function fetchMetrics(appName) {
 
 	return {
 		cpu: {
-			data: cpuData.values.map((value) => value.val * 100),
+			data: cpuData.values.map((value) => value.val),
 			labels: cpuData.values.map((value) => getFormattedDate(value))
 		},
 		ram: {
@@ -47,7 +47,7 @@ export async function fetchMetrics(appName) {
 			labels: diskData.values.map((value) => getFormattedDate(value))
 		},
 		gpu: {
-			data: gpuData.values.map((value) => value.val * 100),
+			data: gpuData.values.map((value) => value.val),
 			labels: gpuData.values.map((value) => getFormattedDate(value))
 		},
 		vram: {
