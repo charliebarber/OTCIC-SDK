@@ -31,10 +31,10 @@
 			<th scope="col">App</th>
 			<th scope="col">SCI Score</th>
 			<th scope="col">CPU %</th>
-			<th scope="col">RAM bytes</th>
-			<th scope="col">Disk bytes</th>
+			<th scope="col">RAM MB</th>
+			<th scope="col">Disk MB</th>
 			<th scope="col">GPU %</th>
-			<th scope="col">VRAM bytes</th>
+			<th scope="col">VRAM MB</th>
 		</thead>
 
 		<tbody>
