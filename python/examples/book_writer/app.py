@@ -7,15 +7,15 @@ import otcic
 
 # word syllable count
 SYL_MIN = 1
-SYL_MAX = 2 #6
+SYL_MAX = 6
 
 # sentence word count
-WORD_MIN = 1 #4
-WORD_MAX = 2 #8
+WORD_MIN = 4
+WORD_MAX = 8
 
 # book sentence/line count
-LINES_MIN = 2 #40
-LINES_MAX = 3 #400
+LINES_MIN = 40
+LINES_MAX = 400
 
 BOOKS_MAX = 32
 INTERVAL = 100
@@ -110,7 +110,6 @@ def startup():
     while True:
         print("Book Writer Main Loop:", count)
         main()
-        time.sleep(0.1)
         count = (count + 1) % INTERVAL
         if count == 0:
             print("Book Writer Waiting...")
