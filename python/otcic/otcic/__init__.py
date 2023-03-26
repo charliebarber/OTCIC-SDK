@@ -28,11 +28,10 @@ import os
 import requests
 url = "http://api:54321/api/apps"
 
-# delete this
-
 INTERVAL_S = 3
 aggregate = AggregateModel(INTERVAL_S)
 
+bytesToMB = 1 / (1024 * 1024)
 
 def ram_trace(func):
     @wraps(func)
@@ -112,8 +111,7 @@ def setup(service_name):
         aggregate_data = metrics["ram"]
         val = aggregate_data[len(aggregate_data)-1][2]
 
-        # change bytes to mb by dividing by 1000000
-        yield Observation(val / 1000000)
+        yield Observation(val * bytesToMB)
 
     meter.create_observable_gauge(
         "ram_gauge",
@@ -127,8 +125,7 @@ def setup(service_name):
         pair = aggregate_data[len(aggregate_data)-1][2]
         val = pair[0] + pair[1]
 
-        # change bytes to mb by dividing by 1000000
-        yield Observation(val / 1000000)
+        yield Observation(val * bytesToMB)
 
     meter.create_observable_gauge(
         "disk_gauge",
@@ -154,7 +151,7 @@ def setup(service_name):
         aggregate_data = metrics["vram"]
         val = aggregate_data[len(aggregate_data)-1][2]
 
-        yield Observation(val)
+        yield Observation(val * bytesToMB)
 
     meter.create_observable_gauge(
         "vram_gauge",

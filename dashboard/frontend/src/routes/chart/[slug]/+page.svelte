@@ -69,15 +69,15 @@
 <div class="grid">
 	<MetricGraph label="CPU Usage %" metric={cpu} />
 
-	<MetricGraph label="RAM Usage in MB" metric={ram} />
+	<MetricGraph label="RAM Usage MB" metric={ram} />
 </div>
 
 <br />
 
 <div class="grid">
-	<MetricGraph label="Disk I/O in MB" metric={disk} />
+	<MetricGraph label="Disk I/O MB" metric={disk} />
 
 	<MetricGraph label="GPU Usage %" metric={gpu} />
 
-	<MetricGraph label="VRAM Usage bytes" metric={vram} />
+	<MetricGraph label="VRAM Usage MB" metric={vram} />
 </div>

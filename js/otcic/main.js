@@ -17,6 +17,8 @@ const os = require("os");
 const url = "http://api:54321/api/apps";
 const INTERVAL = 3;
 
+let bytesToMB = 1 / (1024 * 1024)
+
 function getCpuPercent() {
   let startUsage = process.cpuUsage();
   let startTime = process.hrtime.bigint();
@@ -111,8 +113,7 @@ function setup(serviceName) {
     const { heapTotal, heapUsed } = process.memoryUsage();
     const totalMemory = os.totalmem();
     const percent = heapTotal / totalMemory;
-    // convert bytes to mb by dividing by 1000000
-    result.observe(heapUsed / 1000000);
+    result.observe(heapUsed * bytesToMB);
   });
 
   // Disk gauge
