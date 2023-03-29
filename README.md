@@ -55,6 +55,7 @@ Installation: `pip install -e python/otcic`
 
 This installs the otcic package locally from the `python` folder containing the `otcic` module.
 
+For unit testing, run `python -m pytest`.
 
 ### Links
 
